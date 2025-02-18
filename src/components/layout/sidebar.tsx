@@ -11,14 +11,13 @@ import {
   PanelRightOpen,
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
 import { SidebarLink } from "./sidebar-links";
+import { useSidebar } from "@/contexts/sidebar-context";
 
 export const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, toggleSidebar } = useSidebar();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const session = useSession();
-  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
   return (
     <aside
