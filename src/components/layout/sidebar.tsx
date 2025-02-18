@@ -23,7 +23,7 @@ export const Sidebar = () => {
     <aside
       className={`${
         isCollapsed ? "w-16" : "w-56"
-      } bg-black transition-all duration-300 flex flex-col h-full pb-4`}
+      } bg-black transition-all duration-300 flex flex-col h-full pb-0`}
     >
       <div className="flex justify-between items-center gap-2 p-4 pr-0">
         {!isCollapsed && (
@@ -33,7 +33,7 @@ export const Sidebar = () => {
           <Button
             size="icon"
             onClick={toggleSidebar}
-            className="hidden md:flex hover:bg-[#1E1F23] p-1 text-gray-300"
+            className="hidden md:flex bg-transparent hover:bg-[#1E1F23] p-1 text-gray-300"
           >
             {isCollapsed ? (
               <PanelRightClose style={{ width: "20px", height: "20px" }} />

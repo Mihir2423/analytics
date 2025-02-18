@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Dashboard",
-  description: "Bidding Platform",
+  description: "Dashboard of Analytics Platform",
 };
 
 export default function RootLayout({
