@@ -11,7 +11,7 @@ export const Navbar = () => {
       <Image src="/logo.png" alt="logo" width={40} height={40} />
       <div className="flex items-center gap-2">
         <Button className="flex justify-center items-center gap-2 bg-gray-900 hover:bg-gray-800 w-fit text-white transition-all duration-300 ease-in-out">
-          <span className="max-md:hidden">Contact Us</span>{" "}
+          <span className="max-md:hidden">Contact Us</span>
           <MessageSquare size={18} />
         </Button>
         <Sheet>
