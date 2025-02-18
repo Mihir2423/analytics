@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex bg-gray-900 h-screen overflow-hidden">
+    <div className="flex bg-[#090909] h-screen overflow-hidden">
       <div className="hidden md:block">
         <Sidebar />
       </div>
@@ -22,7 +22,7 @@ export default function RootLayout({
         <div className="md:hidden block">
           <Navbar />
         </div>
-        <main className="flex-1 bg-gray-900 p-4 overflow-y-auto">
+        <main className="flex-1 bg-[#090909] p-2 overflow-y-auto">
           <ComponentWrapper>{children}</ComponentWrapper>
         </main>
       </div>

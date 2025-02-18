@@ -2,19 +2,17 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import sidebarLinks from "@/config/sidebar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import {
- ChartNoAxesCombined,
- FolderGit2,
- LayoutDashboard,
- LogOut,
- PanelRightClose,
- PanelRightOpen,
- Settings
+  ChartNoAxesCombined,
+  LogOut,
+  PanelRightClose,
+  PanelRightOpen,
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
 import { useState } from "react";
+import { SidebarLink } from "./sidebar-links";
 
 export const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -25,10 +23,10 @@ export const Sidebar = () => {
   return (
     <aside
       className={`${
-        isCollapsed ? "w-16" : "w-64"
-      } bg-gray-900 transition-all duration-300 flex flex-col h-full pb-4 border-r border-gray-700`}
+        isCollapsed ? "w-16" : "w-56"
+      } bg-black transition-all duration-300 flex flex-col h-full pb-4`}
     >
-      <div className="flex justify-between items-center gap-2 p-4 pr-1">
+      <div className="flex justify-between items-center gap-2 p-4 pr-0">
         {!isCollapsed && (
           <ChartNoAxesCombined size={36} className="text-white" />
         )}
@@ -36,54 +34,24 @@ export const Sidebar = () => {
           <Button
             size="icon"
             onClick={toggleSidebar}
-            className="hidden md:flex hover:bg-gray-800 p-1 text-gray-300"
+            className="hidden md:flex hover:bg-[#1E1F23] p-1 text-gray-300"
           >
             {isCollapsed ? (
-              <PanelRightClose style={{ width: "24px", height: "24px" }} />
+              <PanelRightClose style={{ width: "20px", height: "20px" }} />
             ) : (
-              <PanelRightOpen style={{ width: "24px", height: "24px" }} />
+              <PanelRightOpen style={{ width: "20px", height: "20px" }} />
             )}
           </Button>
         )}
       </div>
       <nav className="flex-1">
         <ul className="space-y-2 p-2">
-          <li>
-            <Link
-              href="/dashboard"
-              className={`flex items-center p-2 rounded-lg hover:bg-gray-800 ${
-                isCollapsed ? "justify-center" : "space-x-3"
-              } text-gray-300`}
-            >
-              <LayoutDashboard size={20} />
-              {!isCollapsed && <span>Dashboard</span>}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/auction"
-              className={`flex items-center p-2 rounded-lg hover:bg-gray-800 ${
-                isCollapsed ? "justify-center" : "space-x-3"
-              } text-gray-300`}
-            >
-              <FolderGit2 size={20} />
-              {!isCollapsed && <span>Projects</span>}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/chat"
-              className={`flex items-center p-2 rounded-lg hover:bg-gray-800 ${
-                isCollapsed ? "justify-center" : "space-x-3"
-              } text-gray-300`}
-            >
-              <Settings size={20} />
-              {!isCollapsed && <span>Settings</span>}
-            </Link>
-          </li>
+          {sidebarLinks.map((link) => (
+            <SidebarLink key={link.href} {...link} isCollapsed={isCollapsed} />
+          ))}
         </ul>
       </nav>
-      <div className="p-4 border-gray-700 border-t">
+      <div className="p-4 border-gray-800 border-t">
         <div
           className={`flex items-center ${isCollapsed ? "justify-center" : "space-x-3"}`}
         >

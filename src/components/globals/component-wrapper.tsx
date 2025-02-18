@@ -6,7 +6,7 @@ type Props = {
 
 export const ComponentWrapper = ({ children }: Props) => {
   return (
-    <div className="bg-gray-800 max-md:mt-16 pb-5 border border-gray-700 rounded-md md:h-[calc(100vh-32px)] md:overflow-y-scroll">
+    <div className="bg-[#101011] max-md:mt-16 pb-5 border border-[#27282D] rounded-md md:h-[calc(100vh-32px)] md:overflow-y-scroll">
       {children}
     </div>
   );
