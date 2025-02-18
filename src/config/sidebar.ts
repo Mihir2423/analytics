@@ -1,10 +1,11 @@
-import { LayoutDashboard, FolderGit2, Settings } from "lucide-react";
+import { FolderGit2, LayoutDashboard, Settings } from "lucide-react";
 
 interface SidebarLinkItem {
   href: string;
   icon: React.ComponentType<{ size: number; color: string }>;
   label: string;
   iconColor: string;
+  pattern: RegExp;
 }
 
 const sidebarLinks: SidebarLinkItem[] = [
@@ -13,18 +14,21 @@ const sidebarLinks: SidebarLinkItem[] = [
     icon: LayoutDashboard,
     label: "Dashboard",
     iconColor: "#FF5733",
+    pattern: /^\/dashboard/,
   },
   {
     href: "/projects",
     icon: FolderGit2,
     label: "Projects",
     iconColor: "#3357FF",
+    pattern: /^\/projects/,
   },
   {
     href: "/settings",
     icon: Settings,
     label: "Settings",
     iconColor: "#30F273",
+    pattern: /^\/settings/,
   },
 ];
 
