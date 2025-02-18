@@ -1,3 +1,4 @@
+import { ComponentWrapper } from "@/components/globals/component-wrapper";
 import { Navbar } from "@/components/layout/navbar";
 import { Sidebar } from "@/components/layout/sidebar";
 import type { Metadata } from "next";
@@ -13,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex bg-gray-900 h-screen overflow-hidden">
       <div className="hidden md:block">
         <Sidebar />
       </div>
@@ -21,7 +22,9 @@ export default function RootLayout({
         <div className="md:hidden block">
           <Navbar />
         </div>
-        <main className="flex-1 p-4 overflow-y-auto">{children}</main>
+        <main className="flex-1 bg-gray-900 p-4 overflow-y-auto">
+          <ComponentWrapper>{children}</ComponentWrapper>
+        </main>
       </div>
     </div>
   );

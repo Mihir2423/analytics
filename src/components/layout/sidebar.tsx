@@ -4,14 +4,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import {
-  Bot,
-  ChartNoAxesCombined,
-  Crown,
-  Hammer,
-  LayoutDashboard,
-  LogOut,
-  PanelRightClose,
-  PanelRightOpen,
+ ChartNoAxesCombined,
+ FolderGit2,
+ LayoutDashboard,
+ LogOut,
+ PanelRightClose,
+ PanelRightOpen,
+ Settings
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -27,16 +26,17 @@ export const Sidebar = () => {
     <aside
       className={`${
         isCollapsed ? "w-16" : "w-64"
-      } bg-background transition-all duration-300 flex flex-col h-full pb-4`}
+      } bg-gray-900 transition-all duration-300 flex flex-col h-full pb-4 border-r border-gray-700`}
     >
-      <div className="flex justify-between items-center gap-2 p-4 pr-0">
-        {!isCollapsed && <ChartNoAxesCombined size={36} />}
+      <div className="flex justify-between items-center gap-2 p-4 pr-1">
+        {!isCollapsed && (
+          <ChartNoAxesCombined size={36} className="text-white" />
+        )}
         {!isMobile && (
           <Button
-            variant="ghost"
             size="icon"
             onClick={toggleSidebar}
-            className="hidden md:flex p-1"
+            className="hidden md:flex hover:bg-gray-800 p-1 text-gray-300"
           >
             {isCollapsed ? (
               <PanelRightClose style={{ width: "24px", height: "24px" }} />
@@ -51,9 +51,9 @@ export const Sidebar = () => {
           <li>
             <Link
               href="/dashboard"
-              className={`flex items-center p-2 rounded-lg hover:bg-accent ${
+              className={`flex items-center p-2 rounded-lg hover:bg-gray-800 ${
                 isCollapsed ? "justify-center" : "space-x-3"
-              }`}
+              } text-gray-300`}
             >
               <LayoutDashboard size={20} />
               {!isCollapsed && <span>Dashboard</span>}
@@ -62,39 +62,28 @@ export const Sidebar = () => {
           <li>
             <Link
               href="/auction"
-              className={`flex items-center p-2 rounded-lg hover:bg-accent ${
+              className={`flex items-center p-2 rounded-lg hover:bg-gray-800 ${
                 isCollapsed ? "justify-center" : "space-x-3"
-              }`}
+              } text-gray-300`}
             >
-              <Hammer size={20} />
-              {!isCollapsed && <span>Auction</span>}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/wins"
-              className={`flex items-center p-2 rounded-lg hover:bg-accent ${
-                isCollapsed ? "justify-center" : "space-x-3"
-              }`}
-            >
-              <Crown size={20} />
-              {!isCollapsed && <span>Winnings</span>}
+              <FolderGit2 size={20} />
+              {!isCollapsed && <span>Projects</span>}
             </Link>
           </li>
           <li>
             <Link
               href="/chat"
-              className={`flex items-center p-2 rounded-lg hover:bg-accent ${
+              className={`flex items-center p-2 rounded-lg hover:bg-gray-800 ${
                 isCollapsed ? "justify-center" : "space-x-3"
-              }`}
+              } text-gray-300`}
             >
-              <Bot size={20} />
-              {!isCollapsed && <span>Chat Bot</span>}
+              <Settings size={20} />
+              {!isCollapsed && <span>Settings</span>}
             </Link>
           </li>
         </ul>
       </nav>
-      <div className="p-4 border-t">
+      <div className="p-4 border-gray-700 border-t">
         <div
           className={`flex items-center ${isCollapsed ? "justify-center" : "space-x-3"}`}
         >
@@ -107,20 +96,21 @@ export const Sidebar = () => {
           </Avatar>
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-sm truncate">
+              <p className="font-medium text-white text-sm truncate">
                 {session?.data?.user?.name || "N/A"}
               </p>
-              <p className="text-muted-foreground text-xs truncate">
+              <p className="text-gray-400 text-xs truncate">
                 {session?.data?.user?.email || "N/A"}
               </p>
             </div>
           )}
         </div>
         <Button
-          variant="ghost"
           onClick={async () => await signOut()}
           size="sm"
-          className={`mt-2 text-left w-fit ${isCollapsed ? "p-2" : ""}`}
+          className={`mt-2 text-left w-fit bg-transparent text-sm hover:bg-transparent ${
+            isCollapsed ? "p-2" : ""
+          } text-red-700 `}
         >
           <LogOut size={20} />
           {!isCollapsed && <span className="ml-2">Logout</span>}
