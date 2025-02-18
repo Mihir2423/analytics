@@ -5,7 +5,7 @@ import { SidebarProvider } from "@/contexts/sidebar-context";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard 💵 | Real-time bidding platform",
+  title: "Dashboard",
   description: "Bidding Platform",
 };
 
