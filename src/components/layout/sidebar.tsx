@@ -4,16 +4,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import {
- Bot,
-  ChevronLeft,
-  ChevronRight,
+  Bot,
+  ChartNoAxesCombined,
   Crown,
   Hammer,
   LayoutDashboard,
   LogOut,
+  PanelRightClose,
+  PanelRightOpen,
 } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -30,18 +30,18 @@ export const Sidebar = () => {
       } bg-background transition-all duration-300 flex flex-col h-full pb-4`}
     >
       <div className="flex justify-between items-center gap-2 p-4 pr-0">
-        <Image src="/logo.png" alt="logo" width={36} height={36} />
+        {!isCollapsed && <ChartNoAxesCombined size={36} />}
         {!isMobile && (
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleSidebar}
-            className="hidden md:flex"
+            className="hidden md:flex p-1"
           >
             {isCollapsed ? (
-              <ChevronRight size={20} />
+              <PanelRightClose style={{ width: "24px", height: "24px" }} />
             ) : (
-              <ChevronLeft size={20} />
+              <PanelRightOpen style={{ width: "24px", height: "24px" }} />
             )}
           </Button>
         )}
