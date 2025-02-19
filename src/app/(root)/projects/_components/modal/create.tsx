@@ -21,7 +21,7 @@ export const CreateModal = () => {
       open={isOpen && type === "createProject"}
       onOpenChange={(open) => !open && onClose()}
     >
-      <DialogContent className="md:w-[800px] md:max-w-[800px]">
+      <DialogContent className="md:w-[600px] md:max-w-[600px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             New Project
