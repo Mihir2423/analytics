@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
@@ -39,14 +40,14 @@ export default function Home() {
             to get live insights of your project, metadata, page visits and many
             more.
           </p>
-          <div className="relative flex justify-center items-center bg-white mt-3 px-2 py-1 rounded-lg w-fit overflow-hidden text-black">
+          <Button asChild className="relative flex justify-center items-center bg-white hover:bg-white mt-3 px-2 py-1 rounded-lg w-fit overflow-hidden text-black">
            <Link
               href="/dashboard"
               className="flex justify-center items-center gap-2 w-fit text-lg transition-all duration-300 ease-in-out"
             >
               Get Started <ArrowUpRight size={18} />
             </Link>
-          </div>
+          </Button>
         </div>
       </div>
     </div>
