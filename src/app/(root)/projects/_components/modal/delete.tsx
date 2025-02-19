@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -25,7 +26,21 @@ export const DeleteModal = () => {
             cannot be undone.
           </DialogDescription>
         </DialogHeader>
-        {/* Add confirmation buttons here */}
+
+        <DialogFooter className="px-2">
+          <button
+            onClick={onClose}
+            className="bg-[#323232] hover:bg-[#32323298] px-6 py-0 rounded-lg w-fit h-8 text-white text-xs"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onClose}
+            className="bg-[#823d3d] hover:bg-[#823d3dc3] px-6 py-0 rounded-lg w-fit h-8 text-white text-xs"
+          >
+            Delete
+          </button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
