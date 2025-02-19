@@ -6,7 +6,7 @@ import { EditModal } from "./_components/modal/edit";
 import { ProjectCard } from "./_components/project-card";
 
 const ProjectsPage = () => {
-  const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const projects = [1, 2, 3];
   return (
     <div className="flex flex-col w-full h-full">
       <Header />

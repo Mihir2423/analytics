@@ -1,18 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
 import { TailwindIndicator } from "@/components/globals/tailwind-indicator";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { satoshi } from "./fonts/satoshi";
 
 export const metadata: Metadata = {
   title: "Analytics",
@@ -26,12 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${satoshi.className} a antialiased`}>
         <Provider>
           {children}
-
           <TailwindIndicator />
         </Provider>
       </body>
