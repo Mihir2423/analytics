@@ -20,7 +20,7 @@ const sidebarLinks: SidebarLinkItem[] = [
     href: "/projects",
     icon: FolderGit2,
     label: "Projects",
-    iconColor: "#3357FF",
+    iconColor: "#3d7682",
     pattern: /^\/projects/,
   },
   {
