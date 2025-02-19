@@ -1,11 +1,11 @@
 "use client";
 
 import {
- Dialog,
- DialogContent,
- DialogFooter,
- DialogHeader,
- DialogTitle
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,13 +28,18 @@ export const CreateModal = () => {
               <PackagePlus size={16} className="font-normal" />
             </span>
           </DialogTitle>
-          <div className="h-full">
+          <div className="px-4 h-full">
             <div className="flex flex-col items-start gap-2 mt-2 py-2 border-[#383b4183] border-b">
               <Package size={18} className="ml-2 text-[#626366]" />
               <Input
                 style={{ fontSize: "24px" }}
                 className="bg-transparent px-2 py-1 border-0 outline-0 h-full font-medium text-white placeholder:text-[24px] placeholder:text-[#626366]"
                 placeholder="Project name"
+              />
+              <Input
+                style={{ fontSize: "16px" }}
+                className="bg-transparent px-2 py-1 border-0 outline-0 h-full font-medium text-white placeholder:text-[16px] placeholder:text-[#626366]"
+                placeholder="Domain (mihircodes.in)"
               />
             </div>
             <div className="mt-4">

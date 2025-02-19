@@ -20,6 +20,16 @@ export const useModal = create<ModalStore>((set) => ({
   onClose: () => set({ isOpen: false, type: null, data: undefined }),
 }));
 
+interface TabStore {
+  activeTab: string;
+  setActiveTab: (tabId: string) => void;
+}
+
+export const useTabStore = create<TabStore>((set) => ({
+  activeTab: "metadata",
+  setActiveTab: (tabId) => set({ activeTab: tabId }),
+}));
+
 export const useKeyboardShortcut = () => {
   const { onOpen } = useModal();
 
