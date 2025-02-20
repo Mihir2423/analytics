@@ -11,13 +11,13 @@ export const ProjectCard = () => {
   const text =
     "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat vero illo.";
   return (
-    <div
-      role="button"
-      onClick={() => router.push("/projects/website")}
-      className="flex items-center gap-2 bg-transparent p-3 border border-[#27282D] rounded-md w-full h-fit cursor-pointer"
-    >
+    <div className="flex items-center gap-2 bg-transparent p-3 border border-[#27282D] rounded-md w-full h-fit cursor-pointer">
       <div className="flex flex-col flex-1 gap-2 pr-2 h-full overflow-hidden">
-        <div className="flex flex-col">
+        <div
+          className="flex flex-col"
+          role="button"
+          onClick={() => router.push("/projects/website")}
+        >
           <div className="flex items-center gap-2">
             <h2 className="overflow-hidden text-white text-sm text-ellipsis text-nowrap">
               Project Name
