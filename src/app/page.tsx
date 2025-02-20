@@ -1,17 +1,19 @@
+import FlashlightWrapper from "@/components/globals/flashlight-wrapper";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col bg-[#0e0e0e] h-screen overflow-hidden text-white">
+    <div className="relative flex flex-col bg-[#0e0e0e] h-screen overflow-hidden text-white">
       <video
         autoPlay
         muted
         loop
         className="top-0 left-0 absolute w-full h-screen object-cover"
       >
-        <source src="/video/hero.mp4" type="video/mp4" />
+        <source src="/video/hero-1.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <header
@@ -30,8 +32,19 @@ export default function Home() {
           <Link href="https://mihircodes.in">Contact</Link>
         </nav>
       </header>
-      <div className="z-[10] relative flex flex-1 items-center mx-auto max-w-6xl translate-y-[-80px]">
-        <div className="flex flex-col gap-3 w-1/2">
+      <div className="relative flex flex-1 items-center mx-auto max-w-6xl translate-y-[-80px]">
+        <div className="top-1/2 left-0 absolute w-[500px] h-[500px] -translate-y-1/2">
+          <FlashlightWrapper>
+            <Image
+              src="/bg/hero.png"
+              alt="Mail0"
+              width={1200}
+              height={700}
+              className="w-full h-full object-cover"
+            />
+          </FlashlightWrapper>
+        </div>
+        <div className="z-[2] relative flex flex-col gap-3 w-1/2 pointer-events-none">
           <h1 className="font-medium text-[56px] leading-[60px]">
             Your open source analytics platform
           </h1>
@@ -40,8 +53,11 @@ export default function Home() {
             to get live insights of your project, metadata, page visits and many
             more.
           </p>
-          <Button asChild className="relative flex justify-center items-center bg-white hover:bg-white mt-3 px-2 py-1 rounded-lg w-fit overflow-hidden text-black">
-           <Link
+          <Button
+            asChild
+            className="relative flex justify-center items-center bg-white hover:bg-white mt-3 px-2 py-1 rounded-lg w-fit overflow-hidden text-black"
+          >
+            <Link
               href="/dashboard"
               className="flex justify-center items-center gap-2 w-fit text-lg transition-all duration-300 ease-in-out"
             >
