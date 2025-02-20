@@ -44,7 +44,7 @@ export default function Home() {
             />
           </FlashlightWrapper>
         </div>
-        <div className="z-[2] relative flex flex-col gap-3 w-1/2 pointer-events-none">
+        <div className="z-[2] relative flex flex-col gap-3 w-1/2">
           <h1 className="font-medium text-[56px] leading-[60px]">
             Your open source analytics platform
           </h1>

@@ -18,8 +18,8 @@ export const Analytics = () => {
           <div className="flex items-center gap-8">
             <span className="font-medium text-white text-2xl">423</span>
             <div className="flex items-center">
-              <ArrowUp size={24} className="text-[#62bdcf]" />
-              <span className="text-[#62bdcf]">%</span>
+              <ArrowUp size={24} className="text-[#64cf62]" />
+              <span className="text-[#64cf62]">%</span>
             </div>
           </div>
         </div>
@@ -30,8 +30,8 @@ export const Analytics = () => {
           <div className="flex items-center gap-8">
             <span className="font-medium text-white text-2xl">923</span>
             <div className="flex items-center">
-              <ArrowUp size={24} className="text-[#62bdcf]" />
-              <span className="text-[#62bdcf]">%</span>
+              <ArrowUp size={24} className="text-[#64cf62]" />
+              <span className="text-[#64cf62]">%</span>
             </div>
           </div>
         </div>
