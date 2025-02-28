@@ -106,22 +106,12 @@ const AnalyticsGraph = () => {
           <Tooltip content={<CustomTooltip active={false} payload={[]} />} />
 
           {/* Areas with gradients */}
-          <Area
-            type="monotone"
-            dataKey="pv"
-            fill="url(#colorPv)"
-            stroke="none"
-          />
-          <Area
-            type="monotone"
-            dataKey="uv"
-            fill="url(#colorUv)"
-            stroke="none"
-          />
+          <Area type="linear" dataKey="pv" fill="url(#colorPv)" stroke="none" />
+          <Area type="linear" dataKey="uv" fill="url(#colorUv)" stroke="none" />
 
           {/* Lines on top */}
           <Line
-            type="monotone"
+            type="linear"
             dataKey="pv"
             stroke="#fc8c14"
             strokeWidth={2}
@@ -129,7 +119,7 @@ const AnalyticsGraph = () => {
             activeDot={{ r: 8 }}
           />
           <Line
-            type="monotone"
+            type="linear"
             dataKey="uv"
             stroke="#5b98ff"
             strokeWidth={2}
