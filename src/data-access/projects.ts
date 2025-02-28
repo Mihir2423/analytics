@@ -9,3 +9,12 @@ export const getProjects = async (userId: string) => {
   });
   return res;
 };
+
+export const getDomainProject = async (domain: string) => {
+  const res = await prisma.project.findFirst({
+    where: {
+      domain,
+    },
+  });
+  return res;
+};

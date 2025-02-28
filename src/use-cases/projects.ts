@@ -1,6 +1,6 @@
 import "server-only";
 
-import { getProjects } from "@/data-access/projects";
+import { getDomainProject, getProjects } from "@/data-access/projects";
 
 export const getAllProjects = async (id: string | undefined) => {
   if (!id) {
@@ -9,3 +9,11 @@ export const getAllProjects = async (id: string | undefined) => {
   const res = await getProjects(id);
   return res || [];
 };
+
+export const getProjectByDomain = async (domain: string | null) => {
+ if (!domain) {
+   return null;
+ }
+ const res = await getDomainProject(domain);
+ return res;
+}

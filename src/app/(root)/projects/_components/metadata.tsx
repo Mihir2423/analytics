@@ -4,6 +4,8 @@ import { useTabStore } from "@/store/store";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fetchMetadataAction } from "../actions";
+import { MetadataSkeleton } from "./metadata-skeleton";
+import { MetadataError } from "./metadata-error";
 
 type MetadataType = {
   title?: string;
@@ -13,12 +15,14 @@ type MetadataType = {
 
 export const Metadata = ({ domain }: { domain: string }) => {
   const { activeTab } = useTabStore();
-  const [metadata, setMetadata] = useState<MetadataType>();
+  const [metadata, setMetadata] = useState<MetadataType | null>();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchMetadata = async () => {
       setLoading(true);
+      setError(false);
       try {
         const res = await fetchMetadataAction(domain);
         console.log("Metadata:", res);
@@ -28,18 +32,19 @@ export const Metadata = ({ domain }: { domain: string }) => {
             description: res.description || "N/A",
             image: res.image,
           });
+        } else {
+          setError(true);
+          setMetadata(null);
         }
       } catch (error) {
         console.error("Failed to fetch metadata:", error);
+        setError(true);
+        setMetadata(null);
       } finally {
         setLoading(false);
       }
     };
-
-    if (activeTab === "metadata" && domain) {
-      fetchMetadata();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchMetadata();
   }, [domain]);
 
   return (
@@ -49,7 +54,9 @@ export const Metadata = ({ domain }: { domain: string }) => {
       }`}
     >
       {loading ? (
-        <div className="text-white text-sm">Loading metadata...</div>
+        <MetadataSkeleton />
+      ) : error ? (
+        <MetadataError />
       ) : (
         <>
           <div className="flex flex-col gap-1">
