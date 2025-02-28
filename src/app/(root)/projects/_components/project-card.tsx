@@ -8,13 +8,16 @@ import { useRouter } from "next/navigation";
 export const ProjectCard = ({ data }: { data: Project }) => {
   const { onOpen } = useModal();
   const router = useRouter();
+
+  const encodedDomain = encodeURIComponent(data.domain);
+  const projectLink = `/projects/${encodedDomain}`;
   return (
     <div className="flex items-center gap-2 bg-transparent p-3 border border-[#27282D] rounded-md w-full h-fit cursor-pointer">
       <div className="flex flex-col flex-1 gap-2 pr-2 h-full overflow-hidden">
         <div
           className="flex flex-col"
           role="button"
-          onClick={() => router.push(`/projects/${data.domain}`)}
+          onClick={() => router.push(projectLink)}
         >
           <div className="flex items-center gap-2">
             <h2 className="overflow-hidden text-white text-sm text-ellipsis text-nowrap">
@@ -25,7 +28,7 @@ export const ProjectCard = ({ data }: { data: Project }) => {
             </div>
           </div>
           <Link
-            href={`/projects/${data.domain}`}
+            href={projectLink}
             className="flex items-center gap-1 text-[#62bdcf] text-[11px] 2xl:text-xs underline"
           >
             {data.domain}

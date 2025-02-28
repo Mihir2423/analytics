@@ -1,11 +1,12 @@
 // AnalyticsGraph.jsx
 import {
   Line,
-  LineChart,
+  ComposedChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
+  Area,
 } from "recharts";
 
 const data = [
@@ -72,7 +73,7 @@ const AnalyticsGraph = () => {
   return (
     <div className="p-4 w-full h-80">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
+        <ComposedChart
           data={data}
           margin={{
             top: 20,
@@ -81,6 +82,16 @@ const AnalyticsGraph = () => {
             bottom: 20,
           }}
         >
+          <defs>
+            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#fc8c14" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#fc8c14" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#5b98ff" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#5b98ff" stopOpacity={0} />
+            </linearGradient>
+          </defs>
           <XAxis
             dataKey="name"
             axisLine={false}
@@ -93,26 +104,38 @@ const AnalyticsGraph = () => {
             domain={[0, "dataMax + 1000"]}
           />
           <Tooltip content={<CustomTooltip active={false} payload={[]} />} />
+
+          {/* Areas with gradients */}
+          <Area
+            type="monotone"
+            dataKey="pv"
+            fill="url(#colorPv)"
+            stroke="none"
+          />
+          <Area
+            type="monotone"
+            dataKey="uv"
+            fill="url(#colorUv)"
+            stroke="none"
+          />
+
+          {/* Lines on top */}
           <Line
             type="monotone"
             dataKey="pv"
             stroke="#fc8c14"
-            activeDot={{ r: 8 }}
-            dot={false}
-            name="Views"
             strokeWidth={2}
-            legendType="none"
+            dot={false}
+            activeDot={{ r: 8 }}
           />
           <Line
             type="monotone"
             dataKey="uv"
             stroke="#5b98ff"
-            name="Visitors"
-            dot={false}
             strokeWidth={2}
-            legendType="none"
+            dot={false}
           />
-        </LineChart>
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );
