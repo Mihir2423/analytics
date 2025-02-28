@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import axios from "axios";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/store/store";
@@ -32,13 +33,18 @@ export const CreateModal = memo(() => {
     []
   );
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async () => {
     if (!data.name || !data.domain || !data.description) {
       return toast.error("Please fill all the fields");
     }
+    const res = await axios.post("/api/project", data);
+    if (!res.data.success) {
+      return toast.error(res.data.message);
+    }
+    setData({ name: "", domain: "", description: "" });
     toast.success("Project created successfully");
     onClose();
-  }, [data.description, data.domain, data.name, onClose]);
+  }, [data, onClose]);
 
   useEffect(() => {
     // when enter is pressed call the onSubmit
