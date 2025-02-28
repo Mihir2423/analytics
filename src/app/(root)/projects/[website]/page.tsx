@@ -10,7 +10,7 @@ import { getProjectByDomain } from "@/use-cases/projects";
 import WebsiteDetailSkeleton from "../_components/website-skeleton";
 
 type Props = {
-  params: { website: string };
+  params: Promise<{ website: string }>;
 };
 
 const WebsiteContent = async ({ domain }: { domain: string }) => {
@@ -51,8 +51,8 @@ const WebsiteContent = async ({ domain }: { domain: string }) => {
   );
 };
 
-const WebsiteDetailPage = ({ params }: Props) => {
-  const { website } = params;
+const WebsiteDetailPage = async ({ params }: Props) => {
+  const { website } = await params;
 
   return (
     <Suspense fallback={<WebsiteDetailSkeleton />}>
