@@ -16,7 +16,7 @@ export const Analytics = () => {
             Visitors
           </span>
           <div className="flex items-center gap-8">
-            <span className="font-medium text-white text-2xl">423</span>
+            <span className="font-medium text-white text-2xl">422</span>
             <div className="flex items-center">
               <ArrowUp size={24} className="text-[#64cf62]" />
               <span className="text-[#64cf62]">%</span>

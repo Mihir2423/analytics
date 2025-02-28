@@ -1,79 +1,199 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+ provider = "postgresql"
+ url      = env("DATABASE_URL")
+ directUrl = env("DIRECT_URL")
 }
- 
+
 generator client {
-  provider = "prisma-client-js"
+ provider = "prisma-client-js"
 }
- 
+
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+ id            String          @id @default(cuid())
+ name          String?
+ email         String          @unique
+ emailVerified DateTime?
+ image         String?
+ accounts      Account[]
+ sessions      Session[]
+ projects      Project[]
+ Authenticator Authenticator[]
+
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
 }
- 
+
+model Project {
+ id          String     @id @default(cuid())
+ domain      String     @unique
+ name        String
+ description String?
+ ownerId     String
+ owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+ analytics   Analytics?
+
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+
+ @@index([ownerId])
+}
+
+model Analytics {
+ id        String  @id @default(cuid())
+ projectId String  @unique
+ project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+ totalPageVisits Int @default(0)
+ totalVisitors   Int @default(0)
+
+ visitHistory VisitData[]
+
+ routeAnalytics RouteAnalytics[]
+
+ countryAnalytics CountryAnalytics[]
+
+ deviceAnalytics DeviceAnalytics[]
+
+ osAnalytics OSAnalytics[]
+
+ sourceAnalytics SourceAnalytics[]
+
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+}
+
+model VisitData {
+ id          String    @id @default(cuid())
+ analyticsId String
+ analytics   Analytics @relation(fields: [analyticsId], references: [id], onDelete: Cascade)
+
+ date       DateTime @db.Date
+ pageVisits Int      @default(0)
+ visitors   Int      @default(0)
+
+ @@unique([analyticsId, date])
+ @@index([analyticsId])
+ @@index([date])
+}
+
+model RouteAnalytics {
+ id          String    @id @default(cuid())
+ analyticsId String
+ analytics   Analytics @relation(fields: [analyticsId], references: [id], onDelete: Cascade)
+
+ route      String
+ visitors   Int    @default(0)
+ pageVisits Int    @default(0)
+
+ @@unique([analyticsId, route])
+ @@index([analyticsId])
+}
+
+model CountryAnalytics {
+ id          String    @id @default(cuid())
+ analyticsId String
+ analytics   Analytics @relation(fields: [analyticsId], references: [id], onDelete: Cascade)
+
+ countryCode String @db.VarChar(2)
+ countryName String
+ visitors    Int    @default(0)
+
+ @@unique([analyticsId, countryCode])
+ @@index([analyticsId])
+}
+
+model DeviceAnalytics {
+ id          String    @id @default(cuid())
+ analyticsId String
+ analytics   Analytics @relation(fields: [analyticsId], references: [id], onDelete: Cascade)
+
+ deviceType DeviceType
+ visitors   Int        @default(0)
+
+ @@unique([analyticsId, deviceType])
+ @@index([analyticsId])
+}
+
+model OSAnalytics {
+ id          String    @id @default(cuid())
+ analyticsId String
+ analytics   Analytics @relation(fields: [analyticsId], references: [id], onDelete: Cascade)
+
+ osName   String
+ visitors Int    @default(0)
+
+ @@unique([analyticsId, osName])
+ @@index([analyticsId])
+}
+
+model SourceAnalytics {
+ id          String    @id @default(cuid())
+ analyticsId String
+ analytics   Analytics @relation(fields: [analyticsId], references: [id], onDelete: Cascade)
+
+ sourceName String
+ visitors   Int    @default(0)
+
+ @@unique([analyticsId, sourceName])
+ @@index([analyticsId])
+}
+
+enum DeviceType {
+ DESKTOP
+ MOBILE
+ TABLET
+}
+
 model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@id([provider, providerAccountId])
+ userId            String
+ type              String
+ provider          String
+ providerAccountId String
+ refresh_token     String?
+ access_token      String?
+ expires_at        Int?
+ token_type        String?
+ scope             String?
+ id_token          String?
+ session_state     String?
+
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+
+ user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+ @@id([provider, providerAccountId])
 }
- 
+
 model Session {
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+ sessionToken String   @unique
+ userId       String
+ expires      DateTime
+ user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@id([identifier, token])
+ identifier String
+ token      String
+ expires    DateTime
+
+ @@id([identifier, token])
 }
- 
-// Optional for WebAuthn support
+
 model Authenticator {
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@id([userId, credentialID])
+ credentialID         String  @unique
+ userId               String
+ providerAccountId    String
+ credentialPublicKey  String
+ counter              Int
+ credentialDeviceType String
+ credentialBackedUp   Boolean
+ transports           String?
+
+ user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+ @@id([userId, credentialID])
 }
