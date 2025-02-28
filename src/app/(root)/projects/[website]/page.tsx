@@ -6,7 +6,12 @@ import { Metadata } from "../_components/metadata";
 import { Analytics } from "../_components/analytics";
 import { Issues } from "../_components/issues";
 
-const WebsiteDetailPage = () => {
+type Props = {
+  params: Promise<{ website: string }>;
+};
+
+const WebsiteDetailPage = async ({ params }: Props) => {
+  const { website } = await params;
   const tabs = [
     { id: "metadata", label: "Metadata" },
     { id: "analytics", label: "Analytics" },
@@ -23,10 +28,10 @@ const WebsiteDetailPage = () => {
             {"Personal Portfolio"}
           </h3>
           <Link
-            href="https://mihircodes.in"
+            href={`https://${website}`}
             className="flex items-center gap-1 font-medium text-[#62bdcf] text-sm"
           >
-            mihircodes.in <SquareArrowOutUpRight size={9} />
+            {website} <SquareArrowOutUpRight size={9} />
           </Link>
           <p className="mt-2 w-4/5 font-medium text-white text-base text-pretty">
             A personal portfolio website designed to highlight my skills,
@@ -37,7 +42,7 @@ const WebsiteDetailPage = () => {
         </div>
         <div className="flex flex-col gap-4 py-4">
           <AnimatedTabs tabs={tabs} />
-          <Metadata />
+          <Metadata domain={website} />
           <Analytics />
           <Issues />
         </div>
