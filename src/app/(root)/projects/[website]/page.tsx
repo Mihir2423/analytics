@@ -7,6 +7,7 @@ import { Analytics } from "../_components/analytics";
 import { Issues } from "../_components/issues";
 import { getProjectByDomain } from "@/use-cases/projects";
 import WebsiteDetailSkeleton from "../_components/website-skeleton";
+import { Suspense } from "react";
 
 type Props = {
   params: Promise<{ website: string }>;
@@ -14,16 +15,22 @@ type Props = {
 
 const WebsiteDetailPage = async ({ params }: Props) => {
   const { website } = await params;
+
+  return (
+    <Suspense fallback={<WebsiteDetailSkeleton />}>
+      <WebsiteDetail website={website} />
+    </Suspense>
+  );
+};
+
+const WebsiteDetail = async ({ website }: { website: string }) => {
   const websiteData = await getProjectByDomain(website);
   const tabs = [
     { id: "metadata", label: "Metadata" },
     { id: "analytics", label: "Analytics" },
     { id: "issues", label: "Issues" },
   ];
-
-  return !website ? (
-    <WebsiteDetailSkeleton />
-  ) : (
+  return (
     <>
       <Header project={websiteData?.name} />
       <div className="px-32 py-10">
