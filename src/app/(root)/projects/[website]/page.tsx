@@ -8,6 +8,7 @@ import { Issues } from "../_components/issues";
 import { getProjectByDomain } from "@/use-cases/projects";
 import WebsiteDetailSkeleton from "../_components/website-skeleton";
 import { Suspense } from "react";
+import { MetadataError } from "../_components/metadata-error";
 
 type Props = {
   params: Promise<{ website: string }>;
@@ -30,7 +31,11 @@ const WebsiteDetail = async ({ website }: { website: string }) => {
     { id: "analytics", label: "Analytics" },
     { id: "issues", label: "Issues" },
   ];
-  return (
+  return !websiteData ? (
+    <div className="flex justify-center items-center w-full h-screen">
+      <MetadataError />
+    </div>
+  ) : (
     <>
       <Header project={websiteData?.name} />
       <div className="px-32 py-10">
