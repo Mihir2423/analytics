@@ -35,6 +35,7 @@ export async function extractMetadata(url: string) {
         null,
       image: $('meta[property="og:image"]').attr("content") || null,
       url: $('meta[property="og:url"]').attr("content") || url,
+      favicon: $('link[rel="icon"]').attr("href") || null
     };
 
     return { data, error: null };
