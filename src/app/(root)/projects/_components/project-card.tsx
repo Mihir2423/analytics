@@ -50,13 +50,13 @@ export const ProjectCard = ({ data }: { data: Project }) => {
       <div className="flex flex-col justify-between gap-2 pl-3 border-[#27282D] border-l h-full">
         <Button
           onClick={() => onOpen("editProject")}
-          className="bg-transparent p-0 rounded-full text-[#589eaafb]"
+          className="bg-transparent hover:bg-transparent p-0 rounded-full text-[#589eaafb]"
         >
           <FilePenLine size={16} />
         </Button>
         <Button
           onClick={() => onOpen("deleteProject")}
-          className="bg-transparent p-0 rounded-full text-[#f97171]"
+          className="bg-transparent hover:bg-transparent p-0 rounded-full text-[#f97171]"
         >
           <Trash size={16} />
         </Button>
