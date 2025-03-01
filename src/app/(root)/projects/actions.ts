@@ -10,9 +10,9 @@ export async function fetchMetadataAction(domain: string) {
       console.log("Error fetching metadata:", data.error);
       return null;
     }
-    return data.data;
+    return data;
   } catch (error) {
     console.error("Error fetching metadata:", error);
-    return null;
+    return { error };
   }
 }

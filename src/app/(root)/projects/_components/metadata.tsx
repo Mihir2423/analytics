@@ -25,17 +25,25 @@ export const Metadata = ({ domain }: { domain: string }) => {
       setError(false);
       try {
         const res = await fetchMetadataAction(domain);
+        if (res && 'data' in res) {
+          const { data, error } = res;
         console.log("Metadata:", res);
-        if (res) {
+        if (error) {
+          setError(true);
+          setMetadata(null);
+          return;
+        }
+        if (data) {
           setMetadata({
-            title: res.title || "N/A",
-            description: res.description || "N/A",
-            image: res.image,
+            title: data?.title || "N/A",
+            description: data?.description || "N/A",
+            image: data?.image,
           });
         } else {
           setError(true);
           setMetadata(null);
         }
+      }
       } catch (error) {
         console.error("Failed to fetch metadata:", error);
         setError(true);
