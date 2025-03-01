@@ -37,7 +37,7 @@ export const Metadata = ({ domain }: { domain: string }) => {
             setMetadata({
               title: data?.title || "N/A",
               description: data?.description || "N/A",
-              image: data?.image,
+              image: data?.image ?? undefined,
             });
           } else {
             setError(true);
