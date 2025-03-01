@@ -1,4 +1,3 @@
-// src/lib/metadata.ts
 import getMetaData from "metadata-scraper";
 
 export async function extractMetadata(url: string) {

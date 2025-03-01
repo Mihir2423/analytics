@@ -22,3 +22,9 @@ export const AuthenticationError = class AuthenticationError extends Error {
     this.name = "AuthenticationError";
   }
 };
+
+export class PublicError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
