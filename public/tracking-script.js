@@ -4,9 +4,8 @@
  var document = window.document;
  var scriptElement = document.currentScript;
  var dataDomain = scriptElement.getAttribute("data-domain");
- var debugMode = scriptElement.getAttribute("data-debug") === "true";
  
- // Enhanced UTM parameter tracking (all parameters, not just source)
+ // Enhanced UTM parameter tracking
  let queryString = location.search;
  const params = new URLSearchParams(queryString);
  var utmParams = {
@@ -18,7 +17,7 @@
  };
  
  var endpoint = "http://localhost:3000/api/track";
- var sessionDuration = 30 * 60 * 1000; // 30 minutes instead of 10
+ var sessionDuration = 30 * 60 * 1000; // 30 minutes
  
  // Visitor identification (anonymous)
  function getVisitorId() {
@@ -116,10 +115,6 @@
      user_agent: navigator.userAgent,
      data: eventData || {}
    };
-   
-   if (debugMode) {
-     console.log("Analytics event:", payload);
-   }
    
    // Using sendBeacon API for more reliable data sending, falling back to XHR
    if (navigator.sendBeacon && !options?.forceXHR) {
@@ -254,7 +249,7 @@
    });
  });
  
- // SPA navigation tracking with MutationObserver
+ // SPA navigation tracking
  var initialPathname = location.pathname;
  var lastHistoryState = history.state;
  
