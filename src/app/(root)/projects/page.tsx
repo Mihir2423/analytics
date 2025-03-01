@@ -6,8 +6,17 @@ import { DeleteModal } from "./_components/modal/delete";
 import { EditModal } from "./_components/modal/edit";
 import { ProjectCard } from "./_components/project-card";
 import { getAllProjects } from "@/use-cases/projects";
+import { Suspense } from "react";
 
 const ProjectsPage = async () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Projects />
+    </Suspense>
+  );
+};
+
+const Projects = async () => {
   const session = await assertAuthenticated();
   const projects = await getAllProjects(session.id);
   return (

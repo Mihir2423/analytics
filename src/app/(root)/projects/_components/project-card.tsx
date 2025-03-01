@@ -12,7 +12,7 @@ export const ProjectCard = ({ data }: { data: Project }) => {
   const encodedDomain = encodeURIComponent(data.domain);
   const projectLink = `/projects/${encodedDomain}`;
   return (
-    <div className="flex items-center gap-2 bg-transparent p-3 border border-[#27282D] rounded-md w-full h-fit cursor-pointer">
+    <div className="flex items-center gap-2 bg-[#323232] p-3 border border-[#27282D] rounded-md w-full h-fit cursor-pointer">
       <div className="flex flex-col flex-1 gap-2 pr-2 h-full overflow-hidden">
         <div
           className="flex flex-col"
