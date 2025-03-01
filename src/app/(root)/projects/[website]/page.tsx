@@ -1,6 +1,5 @@
 import { Package, SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
 import { AnimatedTabs } from "../_components/animated-tab";
 import { Header } from "../_components/header";
 import { Metadata } from "../_components/metadata";
@@ -13,15 +12,18 @@ type Props = {
   params: Promise<{ website: string }>;
 };
 
-const WebsiteContent = async ({ domain }: { domain: string }) => {
-  const websiteData = await getProjectByDomain(domain);
+const WebsiteDetailPage = async ({ params }: Props) => {
+  const { website } = await params;
+  const websiteData = await getProjectByDomain(website);
   const tabs = [
     { id: "metadata", label: "Metadata" },
     { id: "analytics", label: "Analytics" },
     { id: "issues", label: "Issues" },
   ];
 
-  return (
+  return !website ? (
+    <WebsiteDetailSkeleton />
+  ) : (
     <>
       <Header project={websiteData?.name} />
       <div className="px-32 py-10">
@@ -31,10 +33,10 @@ const WebsiteContent = async ({ domain }: { domain: string }) => {
             {websiteData?.name}
           </h3>
           <Link
-            href={`https://${domain}`}
+            href={`https://${website}`}
             className="flex items-center gap-1 font-medium text-[#62bdcf] text-sm"
           >
-            {domain} <SquareArrowOutUpRight size={9} />
+            {website} <SquareArrowOutUpRight size={9} />
           </Link>
           <p className="mt-2 w-4/5 font-medium text-white text-base text-pretty">
             {websiteData?.description}
@@ -42,22 +44,12 @@ const WebsiteContent = async ({ domain }: { domain: string }) => {
         </div>
         <div className="flex flex-col gap-4 py-4">
           <AnimatedTabs tabs={tabs} />
-          <Metadata domain={domain} />
+          <Metadata domain={website} />
           <Analytics />
           <Issues />
         </div>
       </div>
     </>
-  );
-};
-
-const WebsiteDetailPage = async ({ params }: Props) => {
-  const { website } = await params;
-
-  return (
-    <Suspense fallback={<WebsiteDetailSkeleton />}>
-      <WebsiteContent domain={website} />
-    </Suspense>
   );
 };
 
