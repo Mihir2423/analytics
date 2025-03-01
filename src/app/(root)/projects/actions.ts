@@ -5,6 +5,7 @@ import { extractMetadata } from "@/lib/metadata";
 
 export async function fetchMetadataAction(domain: string) {
   try {
+    console.log(domain);
     const data = await extractMetadata(`https://${domain}`);
     if (data.error) {
       console.log("Error fetching metadata:", data.error);
