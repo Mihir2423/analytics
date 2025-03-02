@@ -4,8 +4,10 @@ import { useTabStore } from "@/store/store";
 import { ArrowUp } from "lucide-react";
 import { AnalyticsGraph } from "./analytics-graph";
 
-export const Analytics = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Analytics = ({ analytics }: { analytics: any }) => {
   const { activeTab } = useTabStore();
+  console.log(analytics);
   return (
     <div
       className={` flex-col gap-2 pb-3 border border-[#383b4183] rounded-lg ${activeTab === "analytics" ? "flex" : "hidden"}`}
@@ -16,7 +18,7 @@ export const Analytics = () => {
             Visitors
           </span>
           <div className="flex items-center gap-8">
-            <span className="font-medium text-white text-2xl">422</span>
+            <span className="font-medium text-white text-2xl">{analytics?.totalVisitors ?? 0}</span>
             <div className="flex items-center">
               <ArrowUp size={24} className="text-[#64cf62]" />
               <span className="text-[#64cf62]">%</span>
@@ -28,7 +30,7 @@ export const Analytics = () => {
             Page Views
           </span>
           <div className="flex items-center gap-8">
-            <span className="font-medium text-white text-2xl">923</span>
+            <span className="font-medium text-white text-2xl">{analytics?.totalPageVisits ?? 0}</span>
             <div className="flex items-center">
               <ArrowUp size={24} className="text-[#64cf62]" />
               <span className="text-[#64cf62]">%</span>
