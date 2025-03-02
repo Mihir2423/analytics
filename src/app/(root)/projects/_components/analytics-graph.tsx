@@ -1,4 +1,3 @@
-// AnalyticsGraph.jsx
 import {
   Line,
   ComposedChart,
@@ -8,53 +7,15 @@ import {
   YAxis,
   Area,
 } from "recharts";
+import { Construction } from "lucide-react";
+import { format } from "date-fns";
 
-const data = [
-  {
-    name: "Feb 13",
-    uv: 4000,
-    pv: 2400,
-  },
-  {
-    name: "Feb 14",
-    uv: 3000,
-    pv: 1398,
-  },
-  {
-    name: "Feb 15",
-    uv: 2000,
-    pv: 9800,
-  },
-  {
-    name: "Feb 16",
-    uv: 2780,
-    pv: 3908,
-  },
-  {
-    name: "Feb 17",
-    uv: 1890,
-    pv: 4800,
-  },
-  {
-    name: "Feb 18",
-    uv: 2390,
-    pv: 3800,
-  },
-  {
-    name: "Feb 19",
-    uv: 3490,
-    pv: 4300,
-  },
-];
-
-// Custom tooltip component
 const CustomTooltip = ({
   active,
   payload,
 }: {
   active: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload: any[];
+  payload: { value: number }[];
 }) => {
   if (active && payload && payload.length) {
     return (
@@ -69,12 +30,87 @@ const CustomTooltip = ({
   return null;
 };
 
-const AnalyticsGraph = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const AnalyticsGraph = ({ visitHistory }: any) => {
+  const formatChartData = () => {
+    if (!visitHistory || visitHistory.length === 0) {
+      return [];
+    }
+
+    const sortedVisits = [...visitHistory].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+
+    return sortedVisits.map((visit) => ({
+      name: format(new Date(visit.date), "MMM dd"),
+      pv: visit.pageVisits,
+      uv: visit.visitors,
+    }));
+  };
+
+  const chartData = formatChartData();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const getAdjustedData = (data: any) => {
+    const dataLength = data.length;
+
+    if (dataLength === 0) {
+      return Array.from({ length: 5 }).map((_, index) => ({
+        name: `Day ${index + 1}`,
+        pv: 0,
+        uv: 0,
+      }));
+    }
+
+    if (dataLength < 5) {
+      const paddedData = [...data];
+      while (paddedData.length < 5) {
+        paddedData.push({
+          name: `Day ${paddedData.length + 1}`,
+          pv: 0,
+          uv: 0,
+        });
+      }
+      return paddedData;
+    }
+
+    if (dataLength > 5) {
+      return data.slice(-5);
+    }
+
+    return data;
+  };
+
+  const adjustedData = getAdjustedData(chartData);
+
+  if (chartData.length === 0) {
+    return (
+      <div className="flex flex-col justify-between items-center p-4 w-full h-full">
+        <div className="flex flex-col items-center text-center">
+          <Construction className="w-16 h-16 text-muted-foreground animate-pulse" />
+          <div className="space-y-2 mt-6">
+            <h2 className="font-semibold text-white text-2xl">
+              No Analytics Data Available
+            </h2>
+            <p className="text-muted-foreground">
+              <span className="block">
+                There is no analytics data to display at this time.
+              </span>
+              <span className="block">
+                Check back once you have some visitor activity!
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4 w-full h-80">
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart
-          data={data}
+          data={adjustedData}
           margin={{
             top: 20,
             right: 30,
@@ -101,7 +137,7 @@ const AnalyticsGraph = () => {
           <YAxis
             axisLine={false}
             tickLine={false}
-            domain={[0, "dataMax + 1000"]}
+            domain={[0, "dataMax + 10"]}
           />
           <Tooltip content={<CustomTooltip active={false} payload={[]} />} />
 

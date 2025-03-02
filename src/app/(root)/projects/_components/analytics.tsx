@@ -15,9 +15,9 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
       <div className="flex items-center gap-4 border-[#383b4183] border-b">
         <div className="flex flex-col gap-3 p-4 border-[#383b4183] border-r">
           <span className="font-semibold text-[#A1A1A1] text-base">
-            Visitors
+            Page Visitors
           </span>
-          <div className="flex items-center gap-8">
+          <div className="flex justify-center items-center gap-2 min-w-[100px]">
             <span className="font-medium text-white text-2xl">{analytics?.totalVisitors ?? 0}</span>
             <div className="flex items-center">
               <ArrowUp size={24} className="text-[#64cf62]" />
@@ -29,7 +29,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
           <span className="font-semibold text-[#A1A1A1] text-base">
             Page Views
           </span>
-          <div className="flex items-center gap-8">
+          <div className="flex justify-center items-center gap-2 min-w-[100px]">
             <span className="font-medium text-white text-2xl">{analytics?.totalPageVisits ?? 0}</span>
             <div className="flex items-center">
               <ArrowUp size={24} className="text-[#64cf62]" />
@@ -38,7 +38,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
           </div>
         </div>
       </div>
-      <AnalyticsGraph />
+      <AnalyticsGraph visitHistory={analytics?.visitHistory || []} />
     </div>
   );
 };
