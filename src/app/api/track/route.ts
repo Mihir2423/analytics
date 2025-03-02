@@ -14,7 +14,6 @@ export async function OPTIONS(request: NextRequest) {
   return NextResponse.json({}, { headers: corsHeaders });
 }
 
-// Helper function to determine device type from user agent
 function getDeviceType(userAgent: string): DeviceType {
   const parser = new UAParser(userAgent);
   const device = parser.getDevice();
@@ -25,7 +24,6 @@ function getDeviceType(userAgent: string): DeviceType {
   return "DESKTOP";
 }
 
-// Helper function to extract OS information
 function getOSInfo(userAgent: string): { name: string } {
   const parser = new UAParser(userAgent);
   const os = parser.getOS();
@@ -50,7 +48,7 @@ export async function POST(req: NextRequest) {
       path,
     } = payload;
 
-    // Validate domain match
+   
     if (!url.includes(domain)) {
       return NextResponse.json(
         {
@@ -61,7 +59,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Get the project ID from domain
+   
     const projectExist = await prisma.project.findUnique({
       where: { domain: domain },
     });
@@ -77,20 +75,20 @@ export async function POST(req: NextRequest) {
 
     const projectId = projectExist.id;
 
-    // Get country information from request headers (simplified)
+   
     const countryCode = req.headers.get("cf-ipcountry") || "US";
     const countryName = countryCode === "US" ? "United States" : "Unknown";
 
-    // Get device information
+   
     const deviceType = user_agent ? getDeviceType(user_agent) : "DESKTOP";
 
-    // Get OS information
+   
     const osInfo = user_agent ? getOSInfo(user_agent) : { name: "Unknown" };
 
-    // Get source information
+   
     const sourceName = source || utm?.source || "direct";
 
-    // Log all collected data
+   
     console.log("==== ANALYTICS EVENT ====");
     console.log("Event Type:", event);
     console.log("Project/Domain:", domain);
@@ -108,7 +106,7 @@ export async function POST(req: NextRequest) {
     console.log("Full Payload:", JSON.stringify(payload, null, 2));
     console.log("========================");
 
-    // Update Analytics for the project
+   
     const analyticsRecord = await prisma.analytics.upsert({
       where: { projectId },
       update: {
@@ -122,10 +120,10 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Ensure the analyticsId is valid
+   
     const analyticsId = analyticsRecord.id;
 
-    // Update VisitData for today
+   
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -148,7 +146,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Update RouteAnalytics
+   
     if (path) {
       await prisma.routeAnalytics.upsert({
         where: {
@@ -170,7 +168,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Update CountryAnalytics
+   
     await prisma.countryAnalytics.upsert({
       where: {
         analyticsId_countryCode: {
@@ -189,7 +187,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Update DeviceAnalytics
+   
     await prisma.deviceAnalytics.upsert({
       where: {
         analyticsId_deviceType: {
@@ -207,7 +205,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Update OSAnalytics
+   
     await prisma.oSAnalytics.upsert({
       where: {
         analyticsId_osName: {
@@ -225,7 +223,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Update SourceAnalytics
+   
     await prisma.sourceAnalytics.upsert({
       where: {
         analyticsId_sourceName: {
@@ -243,7 +241,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Return success response
+   
     return NextResponse.json(
       { success: true, event, received: true },
       { headers: corsHeaders }
