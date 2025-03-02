@@ -1,5 +1,5 @@
 import { ProjectProvider } from "@/contexts/project-context";
-import { getProjectByDomain } from "@/use-cases/projects";
+import { getAnalytics } from "@/use-cases/projects";
 import { Suspense } from "react";
 import { Analytics } from "../_components/analytics";
 import { AnimatedTabs } from "../_components/animated-tab";
@@ -27,7 +27,8 @@ const WebsiteDetailPage = async ({ params }: Props) => {
 };
 
 const WebsiteDetail = async ({ website }: { website: string }) => {
-  const websiteData = await getProjectByDomain(website);
+  const websiteData = await getAnalytics(website);
+  console.log(websiteData);
   const tabs = [
     { id: "metadata", label: "Metadata" },
     { id: "analytics", label: "Analytics" },
@@ -41,11 +42,17 @@ const WebsiteDetail = async ({ website }: { website: string }) => {
     <>
       <Header project={websiteData?.name} />
       <div className="px-32 py-10">
-        <ProjectData website={website} websiteData={{name: websiteData?.name, description: websiteData?.description}} />
+        <ProjectData
+          website={website}
+          websiteData={{
+            name: websiteData?.name,
+            description: websiteData?.description,
+          }}
+        />
         <div className="flex flex-col gap-4 py-4">
           <AnimatedTabs tabs={tabs} />
           <Metadata domain={website} />
-          <Analytics />
+          <Analytics analytics={websiteData?.analytics} />
           <Issues />
         </div>
       </div>
