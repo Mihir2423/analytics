@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
     const osInfo = user_agent ? getOSInfo(user_agent) : { name: "Unknown" };
 
    
-    const sourceName = source || utm?.source || "direct";
+    const sourceName = source || utm?.medium || utm?.source || "direct";
 
    
     console.log("==== ANALYTICS EVENT ====");
