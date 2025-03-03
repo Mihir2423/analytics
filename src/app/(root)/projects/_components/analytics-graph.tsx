@@ -8,7 +8,7 @@ import {
   Area,
 } from "recharts";
 import { Construction } from "lucide-react";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
 const CustomTooltip = ({
   active,
@@ -53,10 +53,18 @@ const AnalyticsGraph = ({ visitHistory }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getAdjustedData = (data: any) => {
     const dataLength = data.length;
+    const today = new Date();
 
     if (dataLength === 0) {
       return Array.from({ length: 5 }).map((_, index) => ({
-        name: `Day ${index + 1}`,
+        name: format(
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate() - (4 - index)
+          ),
+          "MMM dd"
+        ),
         pv: 0,
         uv: 0,
       }));
@@ -65,8 +73,19 @@ const AnalyticsGraph = ({ visitHistory }: any) => {
     if (dataLength < 5) {
       const paddedData = [...data];
       while (paddedData.length < 5) {
+        const lastDate =
+          paddedData.length > 0
+            ? parse(paddedData[paddedData.length - 1].name, "MMM dd", today)
+            : new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                today.getDate() - (5 - paddedData.length)
+              );
+
+        lastDate.setDate(lastDate.getDate() + 1);
+
         paddedData.push({
-          name: `Day ${paddedData.length + 1}`,
+          name: format(lastDate, "MMM dd"),
           pv: 0,
           uv: 0,
         });

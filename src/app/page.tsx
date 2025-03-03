@@ -79,7 +79,7 @@ export default function Home() {
             className="relative flex justify-center items-center bg-white hover:bg-white mt-3 px-2 py-1 rounded-lg w-fit overflow-hidden text-black"
           >
             <Link
-              href="/dashboard"
+              href="/projects"
               className="flex justify-center items-center gap-2 w-fit text-lg transition-all duration-300 ease-in-out"
             >
               Get Started <ArrowUpRight size={18} />
