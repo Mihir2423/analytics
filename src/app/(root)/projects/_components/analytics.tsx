@@ -1,16 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useTabStore } from "@/store/store";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, CloudAlert } from "lucide-react";
 import { AnalyticsGraph } from "./analytics-graph";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Analytics = ({ analytics }: { analytics: any }) => {
   const { activeTab } = useTabStore();
-  console.log(analytics);
   return (
     <div
-      className={` flex-col gap-2 pb-3 border border-[#383b4183] rounded-lg ${activeTab === "analytics" ? "flex" : "hidden"}`}
+      className={` flex-col gap-2 border border-[#383b4183] rounded-lg ${activeTab === "analytics" ? "flex" : "hidden"}`}
     >
       <div className="flex items-center gap-4 border-[#383b4183] border-b">
         <div className="flex flex-col gap-3 p-4 border-[#383b4183] border-r">
@@ -18,7 +17,9 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
             Page Visitors
           </span>
           <div className="flex justify-center items-center gap-2 min-w-[100px]">
-            <span className="font-medium text-white text-2xl">{analytics?.totalVisitors ?? 0}</span>
+            <span className="font-medium text-white text-2xl">
+              {analytics?.totalVisitors ?? 0}
+            </span>
             <div className="flex items-center">
               <ArrowUp size={24} className="text-[#64cf62]" />
               <span className="text-[#64cf62]">%</span>
@@ -30,7 +31,9 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
             Page Views
           </span>
           <div className="flex justify-center items-center gap-2 min-w-[100px]">
-            <span className="font-medium text-white text-2xl">{analytics?.totalPageVisits ?? 0}</span>
+            <span className="font-medium text-white text-2xl">
+              {analytics?.totalPageVisits ?? 0}
+            </span>
             <div className="flex items-center">
               <ArrowUp size={24} className="text-[#64cf62]" />
               <span className="text-[#64cf62]">%</span>
@@ -39,6 +42,70 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
         </div>
       </div>
       <AnalyticsGraph visitHistory={analytics?.visitHistory || []} />
+      <div className="grid grid-cols-2 border-[#383b4183] border-t">
+        <div className="flex flex-col gap-1 border-[#383b4183] border-r">
+          <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
+            <span className="text-white text-base">Pages</span>
+            <span className="text-neutral-400 text-xs uppercase">
+              Page Views
+            </span>
+          </div>
+          <div className="flex flex-col gap-2 p-3 pt-1 w-full">
+            {Array.isArray(analytics?.routeAnalytics) &&
+            analytics?.routeAnalytics?.length > 0 ? (
+              analytics?.routeAnalytics
+                ?.slice(0, 4)
+                ?.map((route: any, i: number) => (
+                  <div
+                    key={i}
+                    className="flex justify-between items-center bg-gradient-to-r from-[#4e4e4e23] via-[#2d2d2d52] to-[#2d2d2d85] px-2 py-1 rounded-md w-full"
+                  >
+                    <span className="text-white text-base">{route.route}</span>
+                    <span className="font-semibold text-white text-base">
+                      {route.pageVisits}
+                    </span>
+                  </div>
+                ))
+            ) : (
+              <div className="flex flex-col flex-grow flex-1 justify-center items-center gap-3 p-3 w-full h-full min-h-[148px] text-white">
+                <CloudAlert className="text-white" size={32} />
+                No Data Found
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
+            <span className="text-white text-base">Devices</span>
+            <span className="text-neutral-400 text-xs uppercase">Visitors</span>
+          </div>
+          <div className="flex flex-col gap-2 p-3 pt-1 w-full">
+            {Array.isArray(analytics?.deviceAnalytics) &&
+            analytics?.deviceAnalytics?.length > 0 ? (
+              analytics?.deviceAnalytics
+                ?.slice(0, 4)
+                ?.map((route: any, i: number) => (
+                  <div
+                    key={i}
+                    className="flex justify-between items-center bg-gradient-to-r from-[#4e4e4e23] via-[#2d2d2d52] to-[#2d2d2d85] px-2 py-1 rounded-md w-full"
+                  >
+                    <span className="text-white text-sm">
+                      {route.deviceType}
+                    </span>
+                    <span className="font-semibold text-white text-base">
+                      {route.visitors}
+                    </span>
+                  </div>
+                ))
+            ) : (
+              <div className="flex flex-col flex-grow flex-1 justify-center items-center gap-3 p-3 w-full h-full min-h-[148px] text-white">
+                <CloudAlert className="text-white" size={32} />
+                No Data Found
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
