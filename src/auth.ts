@@ -1,18 +1,25 @@
+import { authConfig } from "@/auth.config";
+import db from "@/lib/db";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import type { DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
 
 declare module "next-auth" {
   interface Session {
     user: DefaultSession["user"] & {
       id: string;
+      role?: string;
     };
   }
 }
-import NextAuth from "next-auth";
-import { authConfig } from "@/auth.config";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import db from "@/lib/db";
 
 import Google from "next-auth/providers/google";
+
+declare module "next-auth" {
+  interface User {
+    role?: string;
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -36,6 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // if there is no user with the email, create new user
         // else set the user data to token
         token.id = user.id;
+        token.role = user.role || "USER";
       }
       return token;
     },
@@ -45,6 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // set the token data to session
         if (session.user) {
           session.user.id = token.id as string;
+          session.user.role = token.role as string;
         }
       }
 

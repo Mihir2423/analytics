@@ -39,3 +39,12 @@ export const getDomainAnalytics = async (domain: string) => {
   });
   return res;
 };
+
+export const getLogs = async () => {
+  const logs = await prisma.log.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return logs;
+};

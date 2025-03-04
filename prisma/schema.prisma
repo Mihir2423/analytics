@@ -1,7 +1,7 @@
 datasource db {
  provider = "postgresql"
  url      = env("DATABASE_URL")
- directUrl = env("DIRECT_URL")
+ // directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -14,6 +14,7 @@ model User {
  email         String          @unique
  emailVerified DateTime?
  image         String?
+ role          String          @default("USER")
  accounts      Account[]
  sessions      Session[]
  projects      Project[]
@@ -196,4 +197,12 @@ model Authenticator {
  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
  @@id([userId, credentialID])
+}
+
+model Log {
+  id        String   @id @default(cuid())
+  message   String
+  level     String   @default("info") // "info", "warn", "error"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

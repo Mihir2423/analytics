@@ -2,6 +2,7 @@ import "server-only";
 import {
   getDomainAnalytics,
   getDomainProject,
+  getLogs,
   getProjects,
 } from "@/data-access/projects";
 
@@ -49,5 +50,22 @@ export const getAnalytics = async (domain: string | null) => {
   } catch (error) {
     console.error(`Error fetching analytics for domain ${domain}:`, error);
     return null;
+  }
+};
+
+export const getAllLogs = async () => {
+  try {
+    const res = await cache(
+      async () => {
+        const logs = await getLogs();
+        return logs || [];
+      },
+      ["all-logs"],
+      { tags: ["logs"] }
+    )();
+    return res;
+  } catch (error) {
+    console.error("Error fetching all logs:", error);
+    return [];
   }
 };
