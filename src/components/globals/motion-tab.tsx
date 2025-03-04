@@ -13,11 +13,7 @@ type MotionTabProps = {
   setActiveTab: (tabId: string) => void;
 };
 
-export function MotionTab({
-  tabs,
-  activeTab,
-  setActiveTab,
-}: MotionTabProps) {
+export function MotionTab({ tabs, activeTab, setActiveTab }: MotionTabProps) {
   return (
     <div className="flex space-x-1">
       {tabs.map((tab) => (

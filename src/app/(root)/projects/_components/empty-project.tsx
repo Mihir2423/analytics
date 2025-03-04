@@ -20,10 +20,10 @@ export const EmptyProject = () => {
         <div className="flex flex-col gap-3">
           <h3 className="text-white">Projects</h3>
           <p className="max-w-[360px] text-[#5B5B5D] text-sm text-pretty">
-            Add projects and track their analytics in
-            real time. By monitoring key metrics, you gain valuable insights
-            into performance, helping you make data-driven decisions to improve
-            and grow your project effectively.
+            Add projects and track their analytics in real time. By monitoring
+            key metrics, you gain valuable insights into performance, helping
+            you make data-driven decisions to improve and grow your project
+            effectively.
           </p>
         </div>
         <Button

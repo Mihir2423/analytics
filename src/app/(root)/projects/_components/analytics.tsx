@@ -110,9 +110,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
         <div className="flex flex-col gap-1 border-[#383b4183] border-r">
           <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
             <span className="text-white text-base">Countries</span>
-            <span className="text-neutral-400 text-xs uppercase">
-              Visitors
-            </span>
+            <span className="text-neutral-400 text-xs uppercase">Visitors</span>
           </div>
           <div className="flex flex-col gap-2 p-3 pt-1 w-full min-h-[148px]">
             {Array.isArray(analytics?.countryAnalytics) &&
@@ -124,7 +122,9 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
                     key={i}
                     className="flex justify-between items-center bg-gradient-to-r from-[#4e4e4e23] via-[#2d2d2d52] to-[#2d2d2d85] px-2 py-1 rounded-md w-full"
                   >
-                    <span className="text-white text-base">{route.countryName}</span>
+                    <span className="text-white text-base">
+                      {route.countryName}
+                    </span>
                     <span className="font-semibold text-white text-base">
                       {route.visitors}
                     </span>

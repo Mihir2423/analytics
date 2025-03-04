@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     if (!session) {
       return NextResponse.json(
         { user: null, message: "Unauthorized", success: false },
-        { status: 403 }
+        { status: 403 },
       );
     }
     const project = await prisma.project.create({
@@ -26,19 +26,19 @@ export async function POST(req: Request) {
     if (!project) {
       return NextResponse.json(
         { message: "Project not created", success: false },
-        { status: 400 }
+        { status: 400 },
       );
     }
     revalidatePath("/projects");
     return NextResponse.json(
       { project, message: "Project created", success: true },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error: any) {
     console.error("", error);
     return NextResponse.json(
       { message: "Internal Server Error", success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -36,7 +36,7 @@
   function initializeSession() {
     var sessionId = sessionStorage.getItem("session_id");
     var expirationTimestamp = sessionStorage.getItem(
-      "session_expiration_timestamp"
+      "session_expiration_timestamp",
     );
     var isNewSession = false;
 
@@ -53,7 +53,7 @@
       sessionStorage.setItem("session_id", sessionId);
       sessionStorage.setItem(
         "session_expiration_timestamp",
-        expirationTimestamp
+        expirationTimestamp,
       );
       isNewSession = true;
     } else {
@@ -61,7 +61,7 @@
       expirationTimestamp = Date.now() + sessionDuration;
       sessionStorage.setItem(
         "session_expiration_timestamp",
-        expirationTimestamp
+        expirationTimestamp,
       );
     }
 
@@ -223,7 +223,7 @@
             Date.now() -
             parseInt(sessionStorage.getItem("last_activity") || Date.now()),
         },
-        { forceXHR: true }
+        { forceXHR: true },
       );
     }
   }
@@ -256,7 +256,7 @@
     var isOutbound =
       href.indexOf("http") === 0 && !href.includes(location.hostname);
     var isDownload = /\.(pdf|zip|docx?|xlsx?|pptx?|rar|tar|gz|exe)$/i.test(
-      href
+      href,
     );
 
     if (isOutbound) {
@@ -337,7 +337,7 @@
           trigger("scroll_depth", { depth: marker });
         }
       });
-    }, 1000)
+    }, 1000),
   );
 
   // Initialize everything

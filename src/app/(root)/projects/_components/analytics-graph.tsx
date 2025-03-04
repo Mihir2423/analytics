@@ -38,7 +38,7 @@ const AnalyticsGraph = ({ visitHistory }: any) => {
     }
 
     const sortedVisits = [...visitHistory].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
     );
 
     return sortedVisits.map((visit) => ({
@@ -61,9 +61,9 @@ const AnalyticsGraph = ({ visitHistory }: any) => {
           new Date(
             today.getFullYear(),
             today.getMonth(),
-            today.getDate() - (4 - index)
+            today.getDate() - (4 - index),
           ),
-          "MMM dd"
+          "MMM dd",
         ),
         pv: 0,
         uv: 0,
@@ -79,7 +79,7 @@ const AnalyticsGraph = ({ visitHistory }: any) => {
             : new Date(
                 today.getFullYear(),
                 today.getMonth(),
-                today.getDate() - (5 - paddedData.length)
+                today.getDate() - (5 - paddedData.length),
               );
 
         lastDate.setDate(lastDate.getDate() + 1);

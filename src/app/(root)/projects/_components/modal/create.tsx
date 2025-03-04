@@ -30,7 +30,7 @@ export const CreateModal = memo(() => {
         [e.target.name]: e.target.value,
       }));
     },
-    []
+    [],
   );
 
   const onSubmit = useCallback(async () => {

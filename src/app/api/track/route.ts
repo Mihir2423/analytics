@@ -173,7 +173,7 @@ export async function POST(req: NextRequest) {
           error:
             "The script points to a different domain than the current URL. Make sure they match.",
         },
-        { headers: corsHeaders }
+        { headers: corsHeaders },
       );
     }
 
@@ -186,7 +186,7 @@ export async function POST(req: NextRequest) {
           error:
             "The project does not exist. Make sure you have created the project in your dashboard.",
         },
-        { headers: corsHeaders }
+        { headers: corsHeaders },
       );
     }
 
@@ -347,13 +347,13 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { success: true, event, received: true },
-      { headers: corsHeaders }
+      { headers: corsHeaders },
     );
   } catch (error) {
     console.error("Error processing analytics data:", error);
     return NextResponse.json(
       { error: "Failed to process analytics data", details: String(error) },
-      { status: 500, headers: corsHeaders }
+      { status: 500, headers: corsHeaders },
     );
   }
 }
