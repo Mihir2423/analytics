@@ -47,8 +47,9 @@ export async function DELETE(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await auth();
 
@@ -58,8 +59,6 @@ export async function PATCH(
         { status: 403 }
       );
     }
-
-    const { id } = params;
     const values = await req.json();
 
     if (!values.domain || !values.name || !values.description) {
