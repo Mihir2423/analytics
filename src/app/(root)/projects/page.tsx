@@ -12,7 +12,7 @@ import { ProjectSkelteon } from "./_components/project-skeleton";
 const ProjectsPage = async () => {
   return (
     <div className="flex flex-col w-full h-full">
-      <Header />
+      <Header title="Your Projects" />
       <Suspense fallback={<ProjectSkelteon />}>
         <Projects />
       </Suspense>

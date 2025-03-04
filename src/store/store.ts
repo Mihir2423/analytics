@@ -30,6 +30,11 @@ export const useTabStore = create<TabStore>((set) => ({
   setActiveTab: (tabId) => set({ activeTab: tabId }),
 }));
 
+export const useSettingsTabStore = create<TabStore>((set) => ({
+  activeTab: "logs",
+  setActiveTab: (tabId) => set({ activeTab: tabId }),
+}));
+
 export const useKeyboardShortcut = () => {
   const { onOpen } = useModal();
 
