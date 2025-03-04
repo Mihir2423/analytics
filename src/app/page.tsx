@@ -9,14 +9,12 @@ export default function Home() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const handleVideoLoaded = () => {
-    console.log("Video loaded event triggered");
     setIsVideoLoaded(true);
   };
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (!isVideoLoaded) {
-        console.log("Backup timeout triggered");
         setIsVideoLoaded(true);
       }
     }, 500);

@@ -10,8 +10,7 @@ import {
 import { useModal } from "@/store/store";
 
 export const EditModal = () => {
-  const { isOpen, type, data, onClose } = useModal();
-  console.log(data);
+  const { isOpen, type, onClose } = useModal();
   return (
     <Dialog
       open={isOpen && type === "editProject"}

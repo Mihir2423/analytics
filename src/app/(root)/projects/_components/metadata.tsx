@@ -28,7 +28,6 @@ export const Metadata = ({ domain }: { domain: string }) => {
       setError(false);
       try {
         const res = await fetchMetadataAction(domain);
-        console.log("Metadata:", res);
         if (res && "data" in res) {
           const { data, error } = res;
           if (error) {
@@ -49,7 +48,7 @@ export const Metadata = ({ domain }: { domain: string }) => {
           }
         }
       } catch (error) {
-        console.error("Failed to fetch metadata:", error);
+        console.error(error);
         setError(true);
         setMetadata(null);
       } finally {
