@@ -14,9 +14,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/store/store";
 import { Package, PackagePlus } from "lucide-react";
 import { useState, useCallback, memo, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export const CreateModal = memo(() => {
   const { isOpen, type, onClose } = useModal();
+  const router = useRouter();
   const [data, setData] = useState({
     name: "",
     domain: "",
@@ -46,7 +48,9 @@ export const CreateModal = memo(() => {
     setCreating(false);
     setData({ name: "", domain: "", description: "" });
     toast.success("Project created successfully");
+    router.refresh();
     onClose();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, onClose]);
 
   useEffect(() => {

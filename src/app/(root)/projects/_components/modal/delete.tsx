@@ -10,12 +10,14 @@ import {
 } from "@/components/ui/dialog";
 import { useModal } from "@/store/store";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export const DeleteModal = () => {
   const { isOpen, type, data, onClose } = useModal();
   const [deleting, setDeleting] = useState(false);
+  const router = useRouter();
 
   const handleDelete = async () => {
     try {
@@ -23,6 +25,7 @@ export const DeleteModal = () => {
       const res = await axios.delete(`/api/project/${data.id}`);
       if (res.data.success) {
         toast.success("Project deleted successfully");
+        router.refresh();
       }
     } catch (error) {
       console.error("", error);

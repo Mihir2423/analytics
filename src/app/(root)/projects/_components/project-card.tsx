@@ -49,7 +49,7 @@ export const ProjectCard = ({ data }: { data: Project }) => {
       </div>
       <div className="flex flex-col justify-between gap-2 pl-3 border-[#27282D] border-l h-full">
         <Button
-          onClick={() => onOpen("editProject")}
+          onClick={() => onOpen("editProject", data)}
           className="bg-transparent hover:bg-transparent p-0 rounded-full text-[#589eaafb]"
         >
           <FilePenLine size={16} />
