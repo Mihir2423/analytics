@@ -9,7 +9,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
   const { activeTab } = useTabStore();
   return (
     <div
-      className={` flex-col gap-2 border border-[#383b4183] rounded-lg ${activeTab === "analytics" ? "flex" : "hidden"}`}
+      className={` flex-col border border-[#383b4183] rounded-lg ${activeTab === "analytics" ? "flex" : "hidden"}`}
     >
       <div className="flex items-center gap-4 border-[#383b4183] border-b">
         <div className="flex flex-col gap-3 p-4 border-[#383b4183] border-r">
@@ -106,7 +106,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-3 border-[#383b4183] border-t">
+      <div className="grid grid-cols-2 border-[#383b4183] border-t">
         <div className="flex flex-col gap-1 border-[#383b4183] border-r">
           <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
             <span className="text-white text-base">Countries</span>
@@ -156,37 +156,6 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
                     className="flex justify-between items-center bg-gradient-to-r from-[#4e4e4e23] via-[#2d2d2d52] to-[#2d2d2d85] px-2 py-1 rounded-md w-full"
                   >
                     <span className="text-white text-base">{route.osName}</span>
-                    <span className="font-semibold text-white text-base">
-                      {route.visitors}
-                    </span>
-                  </div>
-                ))
-            ) : (
-              <div className="flex flex-col flex-grow flex-1 justify-center items-center gap-3 p-3 w-full h-full min-h-[148px] text-white">
-                <CloudAlert className="text-white" size={32} />
-                No Data Found
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
-            <span className="text-white text-base">Devices</span>
-            <span className="text-neutral-400 text-xs uppercase">Visitors</span>
-          </div>
-          <div className="flex flex-col gap-2 p-3 pt-1 w-full min-h-[148px]">
-            {Array.isArray(analytics?.sourceAnalytics) &&
-            analytics?.sourceAnalytics?.length > 0 ? (
-              analytics?.sourceAnalytics
-                ?.slice(0, 4)
-                ?.map((route: any, i: number) => (
-                  <div
-                    key={i}
-                    className="flex justify-between items-center bg-gradient-to-r from-[#4e4e4e23] via-[#2d2d2d52] to-[#2d2d2d85] px-2 py-1 rounded-md w-full"
-                  >
-                    <span className="text-white text-sm capitalize">
-                      {route.sourceName}
-                    </span>
                     <span className="font-semibold text-white text-base">
                       {route.visitors}
                     </span>

@@ -14,3 +14,4 @@ export async function fetchMetadataAction(domain: string) {
     return { error };
   }
 }
+

@@ -55,7 +55,7 @@ export const ProjectCard = ({ data }: { data: Project }) => {
           <FilePenLine size={16} />
         </Button>
         <Button
-          onClick={() => onOpen("deleteProject")}
+          onClick={() => onOpen("deleteProject", data)}
           className="bg-transparent hover:bg-transparent p-0 rounded-full text-[#f97171]"
         >
           <Trash size={16} />

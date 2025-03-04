@@ -3,10 +3,14 @@ import prisma from "@/lib/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+
   try {
     const session = await auth();
-
     if (!session) {
       return NextResponse.json(
         { user: null, message: "Unauthorized", success: false },
@@ -14,33 +18,26 @@ export async function POST(req: Request) {
       );
     }
 
-    const values = await req.json();
-    if (!values.domain || !values.name || !values.description) {
+    const deletedProject = await prisma.project.deleteMany({
+      where: { id, ownerId: session.user.id },
+    });
+
+    if (deletedProject.count === 0) {
       return NextResponse.json(
-        { message: "Missing required fields", success: false },
-        { status: 400 }
+        { message: "Project not found or unauthorized", success: false },
+        { status: 404 }
       );
     }
-
-    const project = await prisma.project.create({
-      data: {
-        domain: values.domain,
-        name: values.name,
-        description: values.description,
-        owner: { connect: { id: session.user.id } },
-      },
-    });
 
     revalidateTag("projects");
     revalidatePath("/projects");
 
     return NextResponse.json(
-      { project, message: "Project created", success: true },
-      { status: 201 }
+      { message: "Project deleted", success: true },
+      { status: 200 }
     );
   } catch (error) {
-    console.error("Error creating project:", error);
-
+    console.error("Error deleting project:", error);
     return NextResponse.json(
       { message: "Internal Server Error", success: false },
       { status: 500 }

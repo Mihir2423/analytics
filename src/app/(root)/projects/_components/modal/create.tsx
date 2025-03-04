@@ -22,6 +22,7 @@ export const CreateModal = memo(() => {
     domain: "",
     description: "",
   });
+  const [creating, setCreating] = useState(false);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -37,10 +38,12 @@ export const CreateModal = memo(() => {
     if (!data.name || !data.domain || !data.description) {
       return toast.error("Please fill all the fields");
     }
+    setCreating(true);
     const res = await axios.post("/api/project", data);
     if (!res.data.success) {
       return toast.error(res.data.message);
     }
+    setCreating(false);
     setData({ name: "", domain: "", description: "" });
     toast.success("Project created successfully");
     onClose();
@@ -113,7 +116,7 @@ export const CreateModal = memo(() => {
             onClick={onSubmit}
             className="bg-[#3d7682] hover:bg-[#3d7782c3] px-6 py-0 rounded-lg w-fit h-8 text-white text-xs"
           >
-            Create Project
+            {creating ? "Creating..." : "Create Project"}
           </button>
         </DialogFooter>
       </DialogContent>

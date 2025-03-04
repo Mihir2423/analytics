@@ -5,19 +5,27 @@ import {
   getProjects,
 } from "@/data-access/projects";
 
+import { unstable_cache as cache } from "next/cache";
+
 export const getAllProjects = async (id: string | undefined) => {
   if (!id) {
     return null;
   }
   try {
-    const res = await getProjects(id);
-    return res || [];
+    const res = await cache(
+      async () => {
+        const projects = await getProjects(id);
+        return projects || [];
+      },
+      ["all-projects", id],
+      { tags: ["projects"] }
+    )();
+    return res;
   } catch (error) {
     console.error("Error fetching all projects:", error);
     return [];
   }
 };
-
 export const getProjectByDomain = async (domain: string | null) => {
   if (!domain) {
     return null;
