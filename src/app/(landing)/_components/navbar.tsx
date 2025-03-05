@@ -32,7 +32,7 @@ const Navbar = () => {
             <Link href="/" className="flex items-center gap-2">
               <Image src="/logo.svg" width={28} height={28} alt="Logo" />
               <span className="bg-clip-text bg-gradient-to-r from-white to-neutral-500 font-medium text-transparent text-xl">
-                Analytics
+              Weblytics
               </span>
             </Link>
           </motion.div>

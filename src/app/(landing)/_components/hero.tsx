@@ -45,7 +45,7 @@ const Hero = () => {
 
           <AnimationContainer animation="fadeUp" delay={0.8}>
             <div className="w-full">
-              <Link href="/">
+              <Link href="/projects">
                 <Button className="bg-[#C05D5D] hover:bg-[#c05d5dcb] w-full md:w-auto">
                   Get Started Now
                 </Button>
