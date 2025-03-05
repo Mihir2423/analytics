@@ -9,13 +9,14 @@ import Marquee from "@/components/ui/marquee";
 import SectionBadge from "@/components/ui/section-badge";
 
 const Hero = () => {
-  const companies = [
+  const languages = [
     Images.comp1,
     Images.comp2,
     Images.comp3,
     Images.comp4,
-    Images.comp5,
     Images.comp6,
+    Images.comp7,
+    Images.comp8,
   ];
 
   return (
@@ -24,12 +25,12 @@ const Hero = () => {
         <div className="flex flex-col items-start gap-10 py-8 w-full">
           <div className="flex flex-col items-start gap-4">
             <AnimationContainer animation="fadeUp" delay={0.2}>
-              <SectionBadge title="Trusted by 10,000+ Users" />
+              <SectionBadge title="Built using Next.Js" />
             </AnimationContainer>
 
             <AnimationContainer animation="fadeUp" delay={0.4}>
               <h1 className="bg-clip-text bg-gradient-to-r from-white to-neutral-500 font-medium text-transparent text-5xl lg:text-6xl !leading-tight">
-                {"Unlock Your Website’s Potential"}
+                {"Unlock Your Website's Potential"}
               </h1>
             </AnimationContainer>
 
@@ -45,7 +46,7 @@ const Hero = () => {
           <AnimationContainer animation="fadeUp" delay={0.8}>
             <div className="w-full">
               <Link href="/">
-                <Button className="bg-[#C05D5D] w-full md:w-auto">
+                <Button className="bg-[#C05D5D] hover:bg-[#c05d5dcb] w-full md:w-auto">
                   Get Started Now
                 </Button>
               </Link>
@@ -55,18 +56,16 @@ const Hero = () => {
           <AnimationContainer animation="fadeUp" delay={1}>
             <div className="flex flex-col items-start gap-4 py-4">
               <p className="text-muted-foreground text-sm md:text-base">
-                Trusted by Industry Leaders
+                Powering Insights with Cutting-Edge Technology
               </p>
               <div className="relative w-full max-w-[calc(100vw-2rem)] lg:max-w-lg">
-                <Marquee className="select-none [--duration:40s] [--gap:2rem]">
-                  {[...Array(10)].map((_, index) => (
+                <Marquee className="select-none [--duration:30s] [--gap:2rem]">
+                  {languages.map((Company, index) => (
                     <div
                       key={index}
                       className="flex justify-center items-center h-16 text-muted-foreground"
                     >
-                      {companies[index % companies.length]({
-                        className: "w-auto h-5",
-                      })}
+                      <Company className="grayscale-[1] w-auto h-12" />
                     </div>
                   ))}
                 </Marquee>
@@ -92,26 +91,13 @@ const Hero = () => {
                   sizes="1000px"
                   width={1024}
                   height={1024}
-                  className="shadow-[#9b6d6d30] shadow-md border border-[#c05d5d65] rounded-xl lg:rounded-2xl min-w-full h-auto object-contain"
+                  className="rounded-xl lg:rounded-2xl min-w-full h-auto object-contain"
                 />
               </div>
             </div>
           </div>
         </AnimationContainer>
       </div>
-      <AnimationContainer
-        animation="scaleUp"
-        delay={1.2}
-        className="-top-[8%] left-1/4 z-[10] absolute w-2/3 h-auto"
-      >
-        <Image
-          src="/bg/hero-gradient.svg"
-          alt="hero"
-          width={1024}
-          height={1024}
-          className="z-[10] w-full h-auto object-cover"
-        />
-      </AnimationContainer>
     </Wrapper>
   );
 };

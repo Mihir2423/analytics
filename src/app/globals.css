@@ -61,14 +61,17 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+ * {
+   @apply border-border;
+ }
 
-  body {
-    @apply bg-background text-foreground;
-  }
+ html, body {
+   @apply bg-background text-foreground;
+   overscroll-behavior-x: none;
+   overscroll-behavior-y: none;
+ }
 }
+
 
 ::selection {
   background-color: rgba(92, 92, 92, 0.471);
@@ -91,3 +94,4 @@ pre {
   padding: 10px;
   border-radius: 10px;
 }
+

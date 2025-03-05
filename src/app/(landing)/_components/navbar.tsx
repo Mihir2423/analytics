@@ -5,51 +5,22 @@ import Wrapper from "@/components/globals/wrapper";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
- motion,
- useMotionValueEvent,
- useScroll
+ motion
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { RefObject, useRef, useState } from "react";
 
 const Navbar = () => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState<boolean>(false);
-
-  const { scrollY } = useScroll({
-    target: ref as RefObject<HTMLDivElement>,
-    offset: ["start start", "end start"],
-  });
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 100) {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  });
 
   return (
-    <header className="top-0 z-50 fixed inset-x-0 w-full">
+    <header className="top-0 z-50 absolute inset-x-0 w-full">
       {/* Desktop */}
-      <motion.div
-        animate={{
-          width: visible ? "40%" : "100%",
-          y: visible ? 20 : 0,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 200,
-          damping: 40,
-        }}
+      <div
         style={{
           minWidth: "800px",
         }}
         className={cn(
           "flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full",
-          visible &&
-            "bg-background/60 py-2 border border-t-foreground/20 border-b-foreground/10 border-x-foreground/15 w-full"
         )}
       >
         <Wrapper className="flex justify-between items-center lg:px-4">
@@ -69,14 +40,14 @@ const Navbar = () => {
           <AnimationContainer animation="fadeLeft" delay={0.1}>
             <div className="flex items-center gap-x-4">
               <Link href="/projects">
-                <Button size="sm" className="bg-[#C05D5D]">
+                <Button size="sm" className="bg-[#C05D5D] hover:bg-[#c05d5dcb]">
                   Get started
                 </Button>
               </Link>
             </div>
           </AnimationContainer>
         </Wrapper>
-      </motion.div>
+      </div>
     </header>
   );
 };
