@@ -118,7 +118,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
         </div>
       </div>
       <AnalyticsGraph visitHistory={analytics?.visitHistory || []} />
-      <div className="grid grid-cols-2 border-[#383b4183] border-t">
+      <div className="grid grid-cols-1 lg:grid-cols-2 border-[#383b4183] border-t">
         <div className="flex flex-col gap-1 border-[#383b4183] border-r">
           <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
             <span className="text-white text-base">Pages</span>
@@ -182,7 +182,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 border-[#383b4183] border-t">
+      <div className="grid grid-cols-1 lg:grid-cols-2 border-[#383b4183] border-t">
         <div className="flex flex-col gap-1 border-[#383b4183] border-r">
           <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
             <span className="text-white text-base">Countries</span>
