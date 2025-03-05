@@ -29,15 +29,15 @@ const Hero = () => {
 
             <AnimationContainer animation="fadeUp" delay={0.4}>
               <h1 className="bg-clip-text bg-gradient-to-r from-white to-neutral-500 font-medium text-transparent text-5xl lg:text-6xl !leading-tight">
-                Effortless Real Estate Trading
+                {"Unlock Your Website’s Potential"}
               </h1>
             </AnimationContainer>
 
             <AnimationContainer animation="fadeUp" delay={0.6}>
               <p className="text-muted-foreground text-sm md:text-base lg:text-lg">
-                Simplify your property journey with our comprehensive platform.
-                Buy, sell, or manage properties with ease using our innovative
-                tools and expert guidance.
+                Unlock powerful insights with ease. Track visitor behavior,
+                monitor key metrics, and optimize performance effortlessly with
+                our intuitive analytics platform.
               </p>
             </AnimationContainer>
           </div>
@@ -45,7 +45,9 @@ const Hero = () => {
           <AnimationContainer animation="fadeUp" delay={0.8}>
             <div className="w-full">
               <Link href="/">
-                <Button className="w-full md:w-auto">Start free trial</Button>
+                <Button className="bg-[#C05D5D] w-full md:w-auto">
+                  Get Started Now
+                </Button>
               </Link>
             </div>
           </AnimationContainer>
@@ -75,18 +77,22 @@ const Hero = () => {
           </AnimationContainer>
         </div>
 
-        <AnimationContainer animation="fadeRight" delay={0.4} className="z-[12]">
+        <AnimationContainer
+          animation="fadeRight"
+          delay={0.4}
+          className="z-[12]"
+        >
           <div className="relative flex flex-col justify-start items-start w-full h-min overflow-visible">
             <div className="relative w-full lg:w-[1024px] lg:h-[auto,760px] lg:aspect-[1.3884514435695539/1]">
               <div className="hidden lg:block right-1/4 z-50 absolute inset-y-0 bg-gradient-to-l from-black w-1/3 h-full pointer-events-none"></div>
               <div className="lg:absolute lg:inset-0">
                 <Image
-                  src="/bg/hero.png"
+                  src="/bg/hero-1.png"
                   alt="hero"
                   sizes="1000px"
                   width={1024}
                   height={1024}
-                  className="rounded-xl lg:rounded-2xl min-w-full h-auto object-contain"
+                  className="shadow-[#9b6d6d30] shadow-md border border-[#c05d5d65] rounded-xl lg:rounded-2xl min-w-full h-auto object-contain"
                 />
               </div>
             </div>
