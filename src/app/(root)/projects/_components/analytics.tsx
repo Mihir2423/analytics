@@ -4,19 +4,22 @@
 import { useTabStore } from "@/store/store";
 import { ArrowUp, CloudAlert, Copy } from "lucide-react";
 import { AnalyticsGraph } from "./analytics-graph";
-import { NextJsScript, CodeDisplay } from "@/config/code";
+import { NextJsScript, CodeDisplay, nextJsScript, reactJsScript, ReactCodeDisplay, ReactJsScript } from "@/config/code";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export const Analytics = ({ analytics }: { analytics: any }) => {
   const { activeTab } = useTabStore();
   const [scriptHtml, setScriptHtml] = useState<string | null>(null);
+  const [reactJsScriptHtml, setReactJsScript] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchScriptHtml = async () => {
       if (!analytics) {
         const html = await NextJsScript();
         setScriptHtml(html);
+        const reactHtml = await ReactJsScript();
+        setReactJsScript(reactHtml);
       }
     };
     fetchScriptHtml();
@@ -24,8 +27,19 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
 
   const handleNextScriptCopy = async () => {
     try {
-      if (!scriptHtml) return;
-      await navigator.clipboard.writeText(scriptHtml);
+      if (!nextJsScript) return;
+      await navigator.clipboard.writeText(nextJsScript);
+      toast.success("Copied to clipboard");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to copy to clipboard");
+    }
+  };
+
+  const handleReactScriptCopy = async () => {
+    try {
+      if (!reactJsScript) return;
+      await navigator.clipboard.writeText(reactJsScript);
       toast.success("Copied to clipboard");
     } catch (error) {
       console.error(error);
@@ -57,6 +71,17 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
                 <Copy size={16} className="text-neutral-300" />
               </button>
               <CodeDisplay html={scriptHtml} />
+            </div>
+          )}
+          {reactJsScriptHtml && (
+            <div className="relative mt-4 w-full">
+              <button
+                onClick={handleReactScriptCopy}
+                className="top-4 right-4 absolute"
+              >
+                <Copy size={16} className="text-neutral-300" />
+              </button>
+              <ReactCodeDisplay html={reactJsScriptHtml} />
             </div>
           )}
         </div>
