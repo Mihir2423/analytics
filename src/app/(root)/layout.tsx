@@ -5,8 +5,9 @@ import { SidebarProvider } from "@/contexts/sidebar-context";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Dashboard of Analytics Platform",
+  title: "Analytics Dashboard | Web Traffic & Insights",
+  description:
+    "Track and analyze website traffic with detailed insights, user behavior metrics, and performance reports.",
 };
 
 export default function RootLayout({
