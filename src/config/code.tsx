@@ -14,7 +14,7 @@ export async function NextJsScript() {
 
 export function CodeDisplay({ html }: { html: string }) {
   return (
-    <div className="h-[500px] overflow-hidden">
+    <div className="overflow-hidden">
       <div
         className="p-5 text-sm leading-[1.6rem] bg-zinc-900 dark:bg-transparent rounded-lg overflow-x-auto max-w-full 
         [&>pre]:!bg-transparent [&>pre]:!p-0 [&>pre]:overflow-x-auto 

@@ -4,23 +4,17 @@ import AnimationContainer from "@/components/globals/animation-container";
 import Wrapper from "@/components/globals/wrapper";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
- motion
-} from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
 const Navbar = () => {
-
   return (
     <header className="top-0 z-50 absolute inset-x-0 w-full">
       {/* Desktop */}
       <div
-        style={{
-          minWidth: "800px",
-        }}
         className={cn(
-          "flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full",
+          "flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full"
         )}
       >
         <Wrapper className="flex justify-between items-center lg:px-4">
@@ -32,7 +26,7 @@ const Navbar = () => {
             <Link href="/" className="flex items-center gap-2">
               <Image src="/logo.svg" width={28} height={28} alt="Logo" />
               <span className="bg-clip-text bg-gradient-to-r from-white to-neutral-500 font-medium text-transparent text-xl">
-              Weblytics
+                Weblytics
               </span>
             </Link>
           </motion.div>
