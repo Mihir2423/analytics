@@ -1,36 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useTabStore } from "@/store/store";
-import { ArrowUp, CloudAlert, Copy } from "lucide-react";
-import { AnalyticsGraph } from "./analytics-graph";
 import {
-  NextJsScript,
-  CodeDisplay,
-  nextJsScript,
-  reactJsScript,
-  ReactJsScript,
+ NextJsScript,
+ nextJsScript,
+ reactJsScript,
+ ReactJsScript
 } from "@/config/code";
+import { useTabStore } from "@/store/store";
+import { ArrowUp, CloudAlert } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { AnalyticsGraph } from "./analytics-graph";
+import { ScriptDisplay } from "./script";
 
-interface ScriptDisplayProps {
-  html: string;
-  onCopy: () => Promise<void>;
-}
-
-const ScriptDisplay: React.FC<ScriptDisplayProps> = ({ html, onCopy }) => (
-  <div className="relative mt-4 w-full">
-    <button
-      onClick={onCopy}
-      className="top-4 right-4 absolute hover:bg-neutral-700 p-1 rounded-md transition-colors"
-      aria-label="Copy script"
-    >
-      <Copy size={16} className="text-neutral-300" />
-    </button>
-    <CodeDisplay html={html} />
-  </div>
-);
 
 export const Analytics = ({ analytics }: { analytics: any }) => {
   const { activeTab } = useTabStore();
