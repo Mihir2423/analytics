@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     if (!session) {
       return NextResponse.json(
         { message: "Unauthorized", success: false },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     if (!title || !description) {
       return NextResponse.json(
         { message: "Title and description are required", success: false },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -29,18 +29,18 @@ export async function POST(req: Request) {
         description,
         ownerId: session.user.id,
       },
-    })
+    });
     revalidatePath("/settings");
 
     return NextResponse.json(
       { bugReport, message: "Bug report created successfully", success: true },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Error creating bug report:", error);
     return NextResponse.json(
-      { message: "Internal Server Error", success: false , error},
-      { status: 500 }
+      { message: "Internal Server Error", success: false, error },
+      { status: 500 },
     );
   }
 }
@@ -52,7 +52,7 @@ export async function GET() {
     if (!session) {
       return NextResponse.json(
         { message: "Unauthorized", success: false },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -69,14 +69,18 @@ export async function GET() {
     });
 
     return NextResponse.json(
-      { bugReports, message: "Bug reports fetched successfully", success: true },
-      { status: 200 }
+      {
+        bugReports,
+        message: "Bug reports fetched successfully",
+        success: true,
+      },
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error fetching bug reports:", error);
     return NextResponse.json(
       { message: "Internal Server Error", success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

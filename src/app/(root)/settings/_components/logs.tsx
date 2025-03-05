@@ -1,18 +1,14 @@
 "use client";
 
 import {
- Card,
- CardContent,
- CardDescription,
- CardHeader,
- CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { useSettingsTabStore } from "@/store/store";
-import {
- AlertCircle,
- Bell,
- CloudAlert
-} from "lucide-react";
+import { AlertCircle, Bell, CloudAlert } from "lucide-react";
 
 // Map log levels to colors
 const logLevelColors = {
@@ -47,9 +43,11 @@ export const Logs = ({ logs }: { logs: any[] }) => {
       <CardContent className="space-y-4">
         {Array.isArray(logs) && logs.length > 0 ? (
           logs.map((entry, i) => {
-           
-            const IconComponent = logLevelIcons[entry.level as keyof typeof logLevelIcons] || Bell;
-            const color = logLevelColors[entry.level as keyof typeof logLevelColors] || "#45B6FE";
+            const IconComponent =
+              logLevelIcons[entry.level as keyof typeof logLevelIcons] || Bell;
+            const color =
+              logLevelColors[entry.level as keyof typeof logLevelColors] ||
+              "#45B6FE";
             return (
               <div
                 key={i}

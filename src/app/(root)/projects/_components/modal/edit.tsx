@@ -43,7 +43,7 @@ export const EditModal = memo(() => {
         [e.target.name]: e.target.value,
       }));
     },
-    []
+    [],
   );
 
   const onSubmit = useCallback(async () => {
@@ -65,7 +65,7 @@ export const EditModal = memo(() => {
     } finally {
       setUpdating(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, modalData, onClose]);
 
   useEffect(() => {

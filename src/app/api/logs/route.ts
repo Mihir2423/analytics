@@ -13,7 +13,7 @@ export async function POST(req: Request) {
           message: "Unauthorized: Only admins can create logs",
           success: false,
         },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     if (!message) {
       return NextResponse.json(
         { message: "Message is required", success: false },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -38,13 +38,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { log, message: "Log created successfully", success: true },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Error creating log:", error);
     return NextResponse.json(
       { message: "Internal Server Error", success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -57,7 +57,7 @@ export async function GET() {
     if (!session) {
       return NextResponse.json(
         { message: "Unauthorized", success: false },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -70,13 +70,13 @@ export async function GET() {
 
     return NextResponse.json(
       { logs, message: "Logs fetched successfully", success: true },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error fetching logs:", error);
     return NextResponse.json(
       { message: "Internal Server Error", success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

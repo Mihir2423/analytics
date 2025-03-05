@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
 
@@ -14,7 +14,7 @@ export async function DELETE(
     if (!session) {
       return NextResponse.json(
         { user: null, message: "Unauthorized", success: false },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -25,7 +25,7 @@ export async function DELETE(
     if (deletedProject.count === 0) {
       return NextResponse.json(
         { message: "Project not found or unauthorized", success: false },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -34,20 +34,20 @@ export async function DELETE(
 
     return NextResponse.json(
       { message: "Project deleted", success: true },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error deleting project:", error);
     return NextResponse.json(
       { message: "Internal Server Error", success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
 
 export async function PATCH(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
   try {
@@ -56,7 +56,7 @@ export async function PATCH(
     if (!session) {
       return NextResponse.json(
         { user: null, message: "Unauthorized", success: false },
-        { status: 403 }
+        { status: 403 },
       );
     }
     const values = await req.json();
@@ -64,7 +64,7 @@ export async function PATCH(
     if (!values.domain || !values.name || !values.description) {
       return NextResponse.json(
         { message: "Missing required fields", success: false },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -76,7 +76,7 @@ export async function PATCH(
     if (!existingProject) {
       return NextResponse.json(
         { message: "Project not found or unauthorized", success: false },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -96,13 +96,13 @@ export async function PATCH(
 
     return NextResponse.json(
       { project: updatedProject, message: "Project updated", success: true },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Error updating project:", error);
     return NextResponse.json(
       { message: "Internal Server Error", success: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

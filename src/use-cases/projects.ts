@@ -19,7 +19,7 @@ export const getAllProjects = async (id: string | undefined) => {
         return projects || [];
       },
       ["all-projects", id],
-      { tags: ["projects"] }
+      { tags: ["projects"] },
     )();
     return res;
   } catch (error) {
@@ -61,7 +61,7 @@ export const getAllLogs = async () => {
         return logs || [];
       },
       ["all-logs"],
-      { tags: ["logs"] }
+      { tags: ["logs"] },
     )();
     return res;
   } catch (error) {

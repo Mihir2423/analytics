@@ -2,7 +2,12 @@
 import { useEffect } from "react";
 import { create } from "zustand";
 
-type ModalType = "createProject" | "editProject" | "deleteProject" | "createBugReport" | null;
+type ModalType =
+  | "createProject"
+  | "editProject"
+  | "deleteProject"
+  | "createBugReport"
+  | null;
 
 interface ModalStore {
   isOpen: boolean;

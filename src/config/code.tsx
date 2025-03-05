@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { codeToHtml } from "shiki";
 import React from "react";
@@ -29,4 +29,3 @@ export const nextJsScript = `import Script from "next/script";
   data-domain="your-domain.com" // Replace with your domain
   src="https://analytics-code.vercel.app/tracking-script.js"
 />`;
-

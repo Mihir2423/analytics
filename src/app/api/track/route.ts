@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 import { NextRequest, NextResponse } from "next/server";
 import { DeviceType } from "@prisma/client";
 import { UAParser } from "ua-parser-js";

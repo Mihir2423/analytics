@@ -50,7 +50,7 @@ export const CreateModal = memo(() => {
     toast.success("Project created successfully");
     router.refresh();
     onClose();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, onClose]);
 
   useEffect(() => {
