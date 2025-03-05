@@ -99,3 +99,10 @@ pre {
   font-family: "Instrument Serif ", "Instrument Serif Fallback";
   font-weight: 500;
 }
+
+@media (max-width: 1024px) {
+ .chart-container {
+   width: 120% !important;
+   transform: translateX(-60px) !important;
+ }
+}

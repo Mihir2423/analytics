@@ -16,7 +16,8 @@
     content: params.get("utm_content"),
   };
 
-  var endpoint = "https://analytics-code.vercel.app/api/track";
+  // var endpoint = "http://localhost:3000/api/track";
+  // var endpoint = "https://analytics-code.vercel.app/api/track";
   var sessionDuration = 30 * 60 * 1000; // 30 minutes
 
   // Visitor identification (anonymous)
