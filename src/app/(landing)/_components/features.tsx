@@ -18,7 +18,8 @@ const FeaturesSection = () => {
           <h2 className="bg-clip-text bg-gradient-to-b from-[#ffffff] to-neutral-400 font-medium text-transparent text-2xl md:text-4xl lg:text-5xl !leading-tight">
             Unlock Data-Driven Insights
             <br />
-            with Cutting-Edge Analytics
+            with Cutting-Edge 
+            <span className="ml-2 font-subheading italic">Analytic</span>
           </h2>
         </AnimationContainer>
 

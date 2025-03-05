@@ -16,8 +16,8 @@ export const Features: FeaturesItem[] = [
     icon: "/icons/perk-two.svg",
   },
   {
-    title: "SEO Performance",
-    description: "Analyze and optimize search rankings effortlessly.",
+    title: "SEO Insights",
+    description: "View essential metadata, OG images, and indexing info.",
     icon: "/icons/perk-three.svg",
   },
   {

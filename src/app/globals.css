@@ -61,17 +61,17 @@
 }
 
 @layer base {
- * {
-   @apply border-border;
- }
+  * {
+    @apply border-border;
+  }
 
- html, body {
-   @apply bg-background text-foreground;
-   overscroll-behavior-x: none;
-   overscroll-behavior-y: none;
- }
+  html,
+  body {
+    @apply bg-background text-foreground;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: none;
+  }
 }
-
 
 ::selection {
   background-color: rgba(92, 92, 92, 0.471);
@@ -95,3 +95,7 @@ pre {
   border-radius: 10px;
 }
 
+.font-subheading {
+  font-family: "Instrument Serif ", "Instrument Serif Fallback";
+  font-weight: 500;
+}

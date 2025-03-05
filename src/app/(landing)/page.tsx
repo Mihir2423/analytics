@@ -1,6 +1,8 @@
 import React from "react";
 import Hero from "./_components/hero";
 import Perks from "./_components/features";
+import FAQ from "./_components/faq";
+import CTA from "./_components/cta";
 
 const HomePage = () => {
   return (
@@ -17,6 +19,12 @@ const HomePage = () => {
       </section>
       <section className="w-full">
         <Perks />
+      </section>
+      <section className="w-full">
+        <FAQ />
+      </section>
+      <section className="w-full">
+        <CTA />
       </section>
     </div>
   );
