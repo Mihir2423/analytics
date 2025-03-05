@@ -14,6 +14,7 @@ import { Bug } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useModal } from "@/store/store";
 import { CreateBugReportModal } from "./report-bug";
+import { BugReportSkeleton } from "./bug-skeleton";
 
 export const Issues = () => {
   const { activeTab } = useSettingsTabStore();
@@ -26,6 +27,7 @@ export const Issues = () => {
   }
 
   const [bugReports, setBugReports] = useState<BugReport[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch bug reports
   useEffect(() => {
@@ -40,6 +42,8 @@ export const Issues = () => {
         }
       } catch (error) {
         console.error("Error fetching bug reports:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -57,7 +61,13 @@ export const Issues = () => {
         <CardDescription>Report issues and track their status.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        {bugReports && Array.isArray(bugReports) && bugReports.length > 0 ? (
+        {loading ? (
+          <>
+            <BugReportSkeleton />
+            <BugReportSkeleton />
+            <BugReportSkeleton />
+          </>
+        ) : bugReports && Array.isArray(bugReports) && bugReports.length > 0 ? (
           bugReports.map((report) => (
             <div
               key={report.id}
@@ -65,13 +75,17 @@ export const Issues = () => {
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
-                  <Bug className="w-5 h-5" style={{
-                    color: report.status === "isResolved"
-                      ? "#10B981"
-                      : report.status === "inProgress"
-                        ? "#F59E0B"
-                        : "#9CA3AF"
-                  }} />
+                  <Bug
+                    className="w-5 h-5"
+                    style={{
+                      color:
+                        report.status === "isResolved"
+                          ? "#10B981"
+                          : report.status === "inProgress"
+                            ? "#F59E0B"
+                            : "#9CA3AF",
+                    }}
+                  />
                   <div>
                     <p className="font-medium text-white">{report.title}</p>
                     <p className="text-muted-foreground text-sm">
@@ -89,7 +103,9 @@ export const Issues = () => {
                         : "bg-gray-500/10 text-gray-500"
                   }`}
                 >
-                  {report.status.substring(2)}
+                  {report.status === "inProgress"
+                    ? "In Progress"
+                    : report.status.substring(2)}
                 </div>
               </div>
             </div>

@@ -45,7 +45,7 @@ export const CreateBugReportModal = memo(() => {
       if (!res.data.success) {
         return toast.error(res.data.message);
       }
-      toast.success("Bug report created successfully");
+      toast.success("Bug report in review.");
       router.refresh();
       onClose();
     } catch (error) {

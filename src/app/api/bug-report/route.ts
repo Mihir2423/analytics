@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import prisma from "@/lib/db";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -21,7 +22,6 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    console.log("HERE")
 
     const bugReport = await prisma.bugReport.create({
       data: {
@@ -30,6 +30,7 @@ export async function POST(req: Request) {
         ownerId: session.user.id,
       },
     })
+    revalidatePath("/settings");
 
     return NextResponse.json(
       { bugReport, message: "Bug report created successfully", success: true },
