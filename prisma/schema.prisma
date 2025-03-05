@@ -22,6 +22,8 @@ model User {
 
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt
+
+ BugReport BugReport[]
 }
 
 model Project {
@@ -205,4 +207,15 @@ model Log {
   level     String   @default("info") // "info", "warn", "error"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model BugReport {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  status      String   @default("inReview") // isPending, inReview, inProgress, isResolved
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
