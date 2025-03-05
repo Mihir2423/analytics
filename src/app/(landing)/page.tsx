@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "./_components/hero";
+import Perks from "./_components/features";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,9 @@ const HomePage = () => {
       />
       <section className="w-full">
         <Hero />
+      </section>
+      <section className="w-full">
+        <Perks />
       </section>
     </div>
   );

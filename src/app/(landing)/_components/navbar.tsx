@@ -11,7 +11,6 @@ import Link from "next/link";
 const Navbar = () => {
   return (
     <header className="top-0 z-50 absolute inset-x-0 w-full">
-      {/* Desktop */}
       <div
         className={cn(
           "flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full"
