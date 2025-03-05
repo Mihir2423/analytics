@@ -13,6 +13,7 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { SidebarLink } from "./sidebar-links";
 import { useSidebar } from "@/contexts/sidebar-context";
+import Link from "next/link";
 
 export const Sidebar = () => {
   const { isCollapsed, toggleSidebar } = useSidebar();
@@ -27,7 +28,9 @@ export const Sidebar = () => {
     >
       <div className="flex justify-between items-center gap-2 p-4 pr-0">
         {!isCollapsed && (
-          <ChartNoAxesCombined size={36} className="text-white" />
+          <Link href="/">
+            <ChartNoAxesCombined size={36} className="text-white" />
+          </Link>
         )}
         {!isMobile && (
           <Button
