@@ -151,7 +151,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
           </div>
         </div>
         <div className="flex flex-col gap-1">
-          <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
+          <div className="flex justify-between items-center p-3 border-[#383b4183] max-lg:border-t border-b w-full">
             <span className="text-white text-base">Devices</span>
             <span className="text-neutral-400 text-xs uppercase">Visitors</span>
           </div>
@@ -214,7 +214,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-1 border-[#383b4183] border-r">
+        <div className="flex flex-col gap-1 border-[#383b4183] max-lg:border-t border-r">
           <div className="flex justify-between items-center p-3 border-[#383b4183] border-b w-full">
             <span className="text-white text-base">Operating System</span>
             <span className="text-neutral-400 text-xs uppercase">

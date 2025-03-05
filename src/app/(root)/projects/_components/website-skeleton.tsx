@@ -18,7 +18,7 @@ const WebsiteDetailSkeleton = () => {
           <Skeleton className="bg-slate-500 w-20 h-8" />
         </div>
       </div>
-      <div className="px-32 py-10">
+      <div className="p-5 md:px-32 md:py-10">
         <div className="flex flex-col items-start mt-2 py-2 border-[#383b4183] border-b">
           <Package size={24} className="mb-4 text-[#626366]" />
           <Skeleton className="bg-slate-500 mb-2 w-48 h-8" />
