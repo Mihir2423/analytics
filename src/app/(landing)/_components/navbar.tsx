@@ -13,7 +13,7 @@ const Navbar = () => {
     <header className="top-0 z-50 absolute inset-x-0 w-full">
       <div
         className={cn(
-          "flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full"
+          "flex bg-transparent self-start items-center justify-between py-4 rounded-full relative z-[50] mx-auto w-full",
         )}
       >
         <Wrapper className="flex justify-between items-center lg:px-4">
@@ -37,9 +37,7 @@ const Navbar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button
-                  className="flex items-center gap-2 bg-gradient-to-b from-[#834747] via-[#a05151] to-[#893e3e] px-4 py-1 rounded-md text-white text-sm"
-                >
+                <button className="flex items-center gap-2 bg-gradient-to-b from-[#834747] via-[#a05151] to-[#893e3e] px-4 py-1 rounded-md text-white text-sm">
                   <Github size={16} />
                   Star us on GitHub
                 </button>

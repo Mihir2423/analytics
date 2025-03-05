@@ -87,7 +87,9 @@ export const Issues = () => {
                     }}
                   />
                   <div>
-                    <p className="max-w-[220px] overflow-hidden font-medium text-white text-ellipsis whitespace-nowrap">{report.title}</p>
+                    <p className="max-w-[220px] overflow-hidden font-medium text-white text-ellipsis whitespace-nowrap">
+                      {report.title}
+                    </p>
                     <p className="text-muted-foreground text-sm">
                       Submitted on{" "}
                       {new Date(report.createdAt).toLocaleDateString()}
@@ -118,7 +120,10 @@ export const Issues = () => {
         )}
       </CardContent>
       <CardFooter className="p-6 border-[#383b4183] border-t">
-        <Button onClick={() => onOpen("createBugReport")} className="bg-[#C05D5D] hover:bg-[#c05d5dcb]">
+        <Button
+          onClick={() => onOpen("createBugReport")}
+          className="bg-[#C05D5D] hover:bg-[#c05d5dcb]"
+        >
           Report New Bug
         </Button>
       </CardFooter>
