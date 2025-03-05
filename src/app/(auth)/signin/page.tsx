@@ -1,24 +1,22 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { MessageSquare } from "lucide-react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const LoginPage = () => {
   return (
-    <div className="relative flex flex-col justify-center items-center gap-3 w-full h-screen">
+    <div className="relative flex flex-col justify-center items-center gap-3 bg-[#101010] w-full h-screen">
       <nav className="top-0 left-0 fixed flex justify-between items-center p-6 w-full">
-        <Link href="/">
-          <Image src="/logo.png" alt="logo" width={40} height={40} />
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/logo.svg" width={28} height={28} alt="Logo" />
+          <span className="bg-clip-text bg-gradient-to-r from-white to-neutral-500 font-medium text-transparent text-xl">
+            Weblytics
+          </span>
         </Link>
-        <Button className="flex justify-center items-center gap-2 w-fit transition-all duration-300 ease-in-out">
-          Contact Us <MessageSquare size={18} />
-        </Button>
       </nav>
-      <h1 className="text-gray-700">Please sign in to continue</h1>
+      <h1 className="text-gray-400">Please sign in to continue</h1>
       <form
         action={async () => {
           await signIn("google");
@@ -26,7 +24,7 @@ const LoginPage = () => {
       >
         <Button
           type="submit"
-          className="flex justify-center items-center gap-2 w-fit transition-all duration-300 ease-in-out"
+          className="flex justify-center items-center gap-2 bg-[#f3f3f3] hover:bg-[#e4dedecb] w-fit text-black transition-all duration-300 ease-in-out"
         >
           <svg
             className={`w-5 h-5 transition-transform duration-300 ease-in-out`}
