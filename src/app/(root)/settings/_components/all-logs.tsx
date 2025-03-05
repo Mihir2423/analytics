@@ -5,8 +5,6 @@ import { LogsSkeleton } from "./log-skeleton";
 
 export default async function AllLogs() {
   const logs = await getAllLogs();
-  console.log(logs);
-
   return (
     <Suspense fallback={<LogsSkeleton />}>
       <Logs logs={logs} />
