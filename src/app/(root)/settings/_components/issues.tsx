@@ -73,7 +73,7 @@ export const Issues = () => {
               key={report.id}
               className="p-4 border border-[#383b4183] rounded-lg"
             >
-              <div className="flex justify-between items-center">
+              <div className="flex max-md:flex-col justify-between items-start md:items-center max-md:gap-4">
                 <div className="flex items-center gap-3">
                   <Bug
                     className="w-5 h-5"
@@ -87,7 +87,7 @@ export const Issues = () => {
                     }}
                   />
                   <div>
-                    <p className="font-medium text-white">{report.title}</p>
+                    <p className="max-w-[220px] overflow-hidden font-medium text-white text-ellipsis whitespace-nowrap">{report.title}</p>
                     <p className="text-muted-foreground text-sm">
                       Submitted on{" "}
                       {new Date(report.createdAt).toLocaleDateString()}
@@ -118,7 +118,7 @@ export const Issues = () => {
         )}
       </CardContent>
       <CardFooter className="p-6 border-[#383b4183] border-t">
-        <Button onClick={() => onOpen("createBugReport")}>
+        <Button onClick={() => onOpen("createBugReport")} className="bg-[#C05D5D] hover:bg-[#c05d5dcb]">
           Report New Bug
         </Button>
       </CardFooter>

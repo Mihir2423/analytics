@@ -43,8 +43,8 @@ export const DeleteModal = () => {
     >
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete Project</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-left">Delete Project</DialogTitle>
+          <DialogDescription className="text-left">
             Are you sure you want to delete {data?.name}? This action cannot be
             undone.
           </DialogDescription>

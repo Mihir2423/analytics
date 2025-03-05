@@ -61,7 +61,7 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
           activeTab === "analytics" ? "flex" : "hidden"
         }`}
       >
-        <div className="flex flex-col justify-center items-center gap-4 p-8 text-white">
+        <div className="flex flex-col justify-center items-center gap-2 md:gap-4 p-5 md:p-8 text-white">
           <CloudAlert size={48} className="text-neutral-400" />
           <h2 className="font-semibold text-xl">No Analytics Data</h2>
           <p className="text-neutral-400 text-center">

@@ -9,7 +9,7 @@ const SettingsPage = () => {
     { id: "issues", label: "Issues" },
   ];
   return (
-    <div className="p-4">
+    <div className="md:p-4">
       <div className="flex flex-col gap-4 p-4 w-full">
         <div className="flex flex-col gap-2">
           <h1 className="font-semibold text-white text-3xl">Settings</h1>

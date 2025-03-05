@@ -11,7 +11,7 @@ const WebsiteDetailSkeleton = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center px-8 py-4 border-[#383b4183] border-b">
+      <div className="flex justify-between items-center px-5 md:px-8 py-5 md:py-4 border-[#383b4183] border-b">
         <Skeleton className="w-48 h-8" />
         <div className="flex gap-2">
           <Skeleton className="bg-slate-500 w-20 h-8" />

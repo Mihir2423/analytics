@@ -40,7 +40,7 @@ const WebsiteDetail = async ({ website }: { website: string }) => {
   ) : (
     <>
       <Header title="Your Projects" project={websiteData?.name} />
-      <div className="px-32 py-10">
+      <div className="p-5 lg:px-32 lg:py-10">
         <ProjectData
           website={website}
           websiteData={{

@@ -28,7 +28,7 @@ const Projects = async () => {
   const projects = await getAllProjects(session.id);
   return projects && Array.isArray(projects) && projects.length > 0 ? (
     <div className="p-3 w-full h-full">
-      <div className="gap-6 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 w-full">
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 w-full">
         {projects.map((data, index) => (
           <ProjectCard key={index} data={data} />
         ))}
