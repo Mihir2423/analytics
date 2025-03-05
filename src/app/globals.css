@@ -102,3 +102,8 @@ body {
     font-size: 14px;
   }
 }
+
+pre {
+ padding: 10px;
+ border-radius: 10px;
+}

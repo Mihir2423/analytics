@@ -2,11 +2,67 @@
 "use client";
 
 import { useTabStore } from "@/store/store";
-import { ArrowUp, CloudAlert } from "lucide-react";
+import { ArrowUp, CloudAlert, Copy } from "lucide-react";
 import { AnalyticsGraph } from "./analytics-graph";
+import { NextJsScript, CodeDisplay } from "@/config/code";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export const Analytics = ({ analytics }: { analytics: any }) => {
   const { activeTab } = useTabStore();
+  const [scriptHtml, setScriptHtml] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchScriptHtml = async () => {
+      if (!analytics) {
+        const html = await NextJsScript();
+        setScriptHtml(html);
+      }
+    };
+    fetchScriptHtml();
+  }, [analytics]);
+
+  const handleNextScriptCopy = async () => {
+    try {
+      if (!scriptHtml) return;
+      await navigator.clipboard.writeText(scriptHtml);
+      toast.success("Copied to clipboard");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to copy to clipboard");
+    }
+  };
+
+  // If no analytics data is available
+  if (!analytics) {
+    return (
+      <div
+        className={`flex-col border border-[#383b4183] rounded-lg ${
+          activeTab === "analytics" ? "flex" : "hidden"
+        }`}
+      >
+        <div className="flex flex-col justify-center items-center gap-4 p-8 text-white">
+          <CloudAlert size={48} className="text-neutral-400" />
+          <h2 className="font-semibold text-xl">No Analytics Data</h2>
+          <p className="text-neutral-400 text-center">
+            It seems like analytics tracking is not set up for your website.
+          </p>
+
+          {scriptHtml && (
+            <div className="relative mt-4 w-full">
+              <button
+                onClick={handleNextScriptCopy}
+                className="top-4 right-4 absolute"
+              >
+                <Copy size={16} className="text-neutral-300" />
+              </button>
+              <CodeDisplay html={scriptHtml} />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       className={` flex-col border border-[#383b4183] rounded-lg ${activeTab === "analytics" ? "flex" : "hidden"}`}
