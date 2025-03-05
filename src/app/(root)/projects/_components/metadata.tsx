@@ -7,6 +7,7 @@ import { fetchMetadataAction } from "../actions";
 import { MetadataSkeleton } from "./metadata-skeleton";
 import { MetadataError } from "./metadata-error";
 import { useProject } from "@/contexts/project-context";
+import { CloudAlert } from "lucide-react";
 
 type MetadataType = {
   title?: string;
@@ -93,13 +94,10 @@ export const Metadata = ({ domain }: { domain: string }) => {
           ) : (
             <div className="flex flex-col gap-1">
               <span className="text-[#ffffff9c] text-xs">Opengraph Image</span>
-              <Image
-                src="/bg/og.png"
-                width={1200}
-                height={630}
-                alt="OG Image"
-                className="rounded-lg w-auto object-contain"
-              />
+              <div className="flex flex-col flex-grow flex-1 justify-center items-center gap-3 p-3 w-full h-full min-h-[148px] text-white">
+                <CloudAlert className="text-white" size={32} />
+                No OG Image Found
+              </div>
             </div>
           )}
         </>
