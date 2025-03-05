@@ -4,50 +4,74 @@
 import { useTabStore } from "@/store/store";
 import { ArrowUp, CloudAlert, Copy } from "lucide-react";
 import { AnalyticsGraph } from "./analytics-graph";
-import { NextJsScript, CodeDisplay, nextJsScript, reactJsScript, ReactCodeDisplay, ReactJsScript } from "@/config/code";
+import {
+  NextJsScript,
+  CodeDisplay,
+  nextJsScript,
+  reactJsScript,
+  ReactJsScript,
+} from "@/config/code";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+
+interface ScriptDisplayProps {
+  html: string;
+  onCopy: () => Promise<void>;
+}
+
+const ScriptDisplay: React.FC<ScriptDisplayProps> = ({ html, onCopy }) => (
+  <div className="relative mt-4 w-full">
+    <button
+      onClick={onCopy}
+      className="top-4 right-4 absolute hover:bg-neutral-700 p-1 rounded-md transition-colors"
+      aria-label="Copy script"
+    >
+      <Copy size={16} className="text-neutral-300" />
+    </button>
+    <CodeDisplay html={html} />
+  </div>
+);
 
 export const Analytics = ({ analytics }: { analytics: any }) => {
   const { activeTab } = useTabStore();
   const [scriptHtml, setScriptHtml] = useState<string | null>(null);
-  const [reactJsScriptHtml, setReactJsScript] = useState<string | null>(null);
+  const [reactScriptHtml, setReactScriptHtml] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchScriptHtml = async () => {
+    const fetchScripts = async () => {
       if (!analytics) {
-        const html = await NextJsScript();
-        setScriptHtml(html);
-        const reactHtml = await ReactJsScript();
-        setReactJsScript(reactHtml);
+        try {
+          const nextHtml = await NextJsScript();
+          const reactHtml = await ReactJsScript();
+
+          setScriptHtml(nextHtml);
+          setReactScriptHtml(reactHtml);
+        } catch (error) {
+          console.error("Failed to fetch script HTML:", error);
+          toast.error("Unable to load tracking scripts");
+        }
       }
     };
-    fetchScriptHtml();
+
+    fetchScripts();
   }, [analytics]);
 
-  const handleNextScriptCopy = async () => {
+  const copyToClipboard = async (script: string, successMessage: string) => {
     try {
-      if (!nextJsScript) return;
-      await navigator.clipboard.writeText(nextJsScript);
-      toast.success("Copied to clipboard");
+      await navigator.clipboard.writeText(script);
+      toast.success(successMessage);
     } catch (error) {
       console.error(error);
       toast.error("Failed to copy to clipboard");
     }
   };
 
-  const handleReactScriptCopy = async () => {
-    try {
-      if (!reactJsScript) return;
-      await navigator.clipboard.writeText(reactJsScript);
-      toast.success("Copied to clipboard");
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to copy to clipboard");
-    }
-  };
+  const handleNextScriptCopy = () =>
+    copyToClipboard(nextJsScript, "Next.js script copied");
+  const handleReactScriptCopy = () =>
+    copyToClipboard(reactJsScript, "React script copied");
 
-  // If no analytics data is available
+  // No analytics data scenario
   if (!analytics) {
     return (
       <div
@@ -59,30 +83,19 @@ export const Analytics = ({ analytics }: { analytics: any }) => {
           <CloudAlert size={48} className="text-neutral-400" />
           <h2 className="font-semibold text-xl">No Analytics Data</h2>
           <p className="text-neutral-400 text-center">
-            It seems like analytics tracking is not set up for your website.
+            Analytics tracking is not configured for your website. Use the
+            scripts below to get started.
           </p>
 
           {scriptHtml && (
-            <div className="relative mt-4 w-full">
-              <button
-                onClick={handleNextScriptCopy}
-                className="top-4 right-4 absolute"
-              >
-                <Copy size={16} className="text-neutral-300" />
-              </button>
-              <CodeDisplay html={scriptHtml} />
-            </div>
+            <ScriptDisplay html={scriptHtml} onCopy={handleNextScriptCopy} />
           )}
-          {reactJsScriptHtml && (
-            <div className="relative mt-4 w-full">
-              <button
-                onClick={handleReactScriptCopy}
-                className="top-4 right-4 absolute"
-              >
-                <Copy size={16} className="text-neutral-300" />
-              </button>
-              <ReactCodeDisplay html={reactJsScriptHtml} />
-            </div>
+
+          {reactScriptHtml && (
+            <ScriptDisplay
+              html={reactScriptHtml}
+              onCopy={handleReactScriptCopy}
+            />
           )}
         </div>
       </div>
