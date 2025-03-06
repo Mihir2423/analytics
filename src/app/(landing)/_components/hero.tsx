@@ -83,7 +83,7 @@ const Hero = () => {
         >
           <div className="relative flex flex-col justify-start items-start w-full h-min overflow-visible">
             <div className="relative w-full lg:w-[1024px] lg:h-[auto,760px] lg:aspect-[1.3884514435695539/1]">
-              <div className="hidden lg:block right-[13%] z-50 absolute inset-y-0 bg-gradient-to-l from-black w-[60%] h-[86%] pointer-events-none"></div>
+              <div className="hidden lg:block right-[0%] z-50 absolute inset-y-0 bg-gradient-to-l from-black w-[60%] h-[86%] pointer-events-none"></div>
               <div className="lg:absolute lg:inset-0">
                 <Image
                   src="/bg/hero-1.png"
