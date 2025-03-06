@@ -101,8 +101,12 @@ pre {
 }
 
 @media (max-width: 1024px) {
- .chart-container {
-   width: 120% !important;
-   transform: translateX(-60px) !important;
- }
+  .chart-container {
+    width: 120% !important;
+    transform: translateX(-60px) !important;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
