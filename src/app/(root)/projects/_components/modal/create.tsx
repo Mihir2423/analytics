@@ -25,20 +25,68 @@ export const CreateModal = memo(() => {
     description: "",
   });
   const [creating, setCreating] = useState(false);
+  const [domainError, setDomainError] = useState("");
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setData((prevData) => ({
-        ...prevData,
-        [e.target.name]: e.target.value,
-      }));
+      const { name, value } = e.target;
+
+      if (name === "domain") {
+        // Remove any protocol or trailing slashes
+        const cleanedValue = value
+          .replace(/^(https?:\/\/)?(www\.)?/i, "")
+          .replace(/\/.*$/, "");
+
+        // Check if the domain has invalid characters
+        const domainRegex =
+          /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+        const subdomainRegex =
+          /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+        const localhostRegex = /^localhost(:[0-9]+)?$/;
+        if (
+          value &&
+          !domainRegex.test(cleanedValue) &&
+          !subdomainRegex.test(cleanedValue) &&
+          !localhostRegex.test(data.domain) &&
+          value !== ""
+        ) {
+          setDomainError(
+            "Please enter a valid domain (e.g., example.com or subdomain.example.com)"
+          );
+        } else {
+          setDomainError("");
+        }
+
+        setData((prevData) => ({
+          ...prevData,
+          [name]: cleanedValue,
+        }));
+      } else {
+        setData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      }
     },
-    []
+    [data.domain]
   );
 
   const onSubmit = useCallback(async () => {
     if (!data.name || !data.domain || !data.description) {
       return toast.error("Please fill all the fields");
+    }
+    const domainRegex = /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+    const subdomainRegex =
+      /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+    const localhostRegex = /^localhost(:[0-9]+)?$/;
+    if (
+      !domainRegex.test(data.domain) &&
+      !subdomainRegex.test(data.domain) &&
+      !localhostRegex.test(data.domain)
+    ) {
+      return toast.error(
+        "Please enter a valid domain (e.g., example.com or subdomain.example.com)"
+      );
     }
     try {
       setCreating(true);
@@ -48,10 +96,10 @@ export const CreateModal = memo(() => {
       }
       toast.success("Project created successfully");
       router.refresh();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error creating project:", error);
-      toast.error(error?.response?.data?.message ||  "Error creating project");
+      toast.error(error?.response?.data?.message || "Error creating project");
     } finally {
       setCreating(false);
       setData({ name: "", domain: "", description: "" });
@@ -104,6 +152,9 @@ export const CreateModal = memo(() => {
                 value={data.domain}
                 onChange={handleChange}
               />
+              {domainError && (
+                <p className="mt-1 text-red-500 text-xs">{domainError}</p>
+              )}
             </div>
             <div className="mt-4">
               <Textarea

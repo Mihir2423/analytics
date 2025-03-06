@@ -25,6 +25,7 @@ export const EditModal = memo(() => {
     description: "",
   });
   const [updating, setUpdating] = useState(false);
+  const [domainError, setDomainError] = useState("");
 
   useEffect(() => {
     if (modalData) {
@@ -38,18 +39,66 @@ export const EditModal = memo(() => {
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setData((prevData) => ({
-        ...prevData,
-        [e.target.name]: e.target.value,
-      }));
+      const { name, value } = e.target;
+
+      if (name === "domain") {
+        // Remove any protocol or trailing slashes
+        const cleanedValue = value
+          .replace(/^(https?:\/\/)?(www\.)?/i, "")
+          .replace(/\/.*$/, "");
+
+        // Check if the domain has invalid characters
+        const domainRegex =
+          /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+        const subdomainRegex =
+          /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+        const localhostRegex = /^localhost(:[0-9]+)?$/;
+        if (
+          value &&
+          !domainRegex.test(cleanedValue) &&
+          !subdomainRegex.test(cleanedValue) &&
+          !localhostRegex.test(cleanedValue) &&
+          value !== ""
+        ) {
+          setDomainError(
+            "Please enter a valid domain (e.g., example.com or subdomain.example.com)"
+          );
+        } else {
+          setDomainError("");
+        }
+
+        setData((prevData) => ({
+          ...prevData,
+          [name]: cleanedValue,
+        }));
+      } else {
+        setData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      }
     },
-    [],
+    []
   );
 
   const onSubmit = useCallback(async () => {
     if (!data.name || !data.domain || !data.description) {
       return toast.error("Please fill all the fields");
     }
+    const domainRegex = /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+    const subdomainRegex =
+      /^[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+    const localhostRegex = /^localhost(:[0-9]+)?$/;
+    if (
+      !domainRegex.test(data.domain) &&
+      !subdomainRegex.test(data.domain) &&
+      !localhostRegex.test(data.domain)
+    ) {
+      return toast.error(
+        "Please enter a valid domain (e.g., example.com or subdomain.example.com)"
+      );
+    }
+
     setUpdating(true);
     try {
       const res = await axios.patch(`/api/project/${modalData?.id}`, data);
@@ -110,6 +159,9 @@ export const EditModal = memo(() => {
                 value={data.domain}
                 onChange={handleChange}
               />
+              {domainError && (
+                <p className="mt-1 text-red-500 text-xs">{domainError}</p>
+              )}
             </div>
             <div className="mt-4">
               <Textarea
