@@ -4,6 +4,7 @@ import Provider from "./provider";
 import { TailwindIndicator } from "@/components/globals/tailwind-indicator";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script
+        defer
+        data-domain="analytics-code.vercel.app"
+        src="https://analytics-code.vercel.app/tracking-script.js"
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} a antialiased`}
       >
